@@ -1,19 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
-import { myNationMain } from "./components/myNationMain";
+import { MyNationMain } from "./components/MyNationMain";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme/theme";
 import { GlobalStyles } from "./theme/GlobalStyles";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import "./theme/fonts.css";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <GlobalStyles />
       <ThemeProvider theme={theme}>
-        <myNationMain />
+        <MyNationMain />
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,
