@@ -4,7 +4,7 @@ import { Search } from "@material-ui/icons";
 
 export const NavigationInput = () => {
   return (
-    <Grid container alignItems="center" xs={4}>
+    <Grid container item alignItems="center" xs={4}>
       <Grid item xs>
         <TextField
           fullWidth

@@ -1,15 +1,17 @@
 import * as actionTypes from "./actionTypes";
 
 const initialState = {
-  hej: "hej",
+  countriesDataList: [],
+  countriesNameList: [],
 };
 
 export const reducer = (state = initialState, action: any) => {
-  switch (action) {
-    case actionTypes.INIT_ACTION:
+  switch (action.type) {
+    case actionTypes.FETCH_DATA:
       return {
         ...state,
-        hej: "cześć",
+        countriesDataList: action.countriesDataList,
+        countriesNameList: action.countriesNameList,
       };
     default:
       return {
