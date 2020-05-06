@@ -6,19 +6,27 @@ import { DisplayList } from "../DisplayList/DisplayList";
 
 export interface DisplaySectionInterface {
   countriesDataList: Array<{}>;
+  skeletonDataList: Array<number>;
   fetchData: () => any;
+  fetchedDataSuccessfull: boolean;
 }
 
 export const DisplaySection: React.FC<DisplaySectionInterface> = ({
   countriesDataList,
   fetchData,
+  fetchedDataSuccessfull,
+  skeletonDataList,
 }) => {
   useEffect(() => {
     fetchData();
   }, []);
   return (
     <Box component="section">
-      <DisplayList countriesDataList={countriesDataList} />
+      <DisplayList
+        countriesDataList={countriesDataList}
+        fetchedDataSuccessfull={fetchedDataSuccessfull}
+        skeletonDataList={skeletonDataList}
+      />
     </Box>
   );
 };
@@ -26,6 +34,8 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
 const mapStateToProps = (state: any) => {
   return {
     countriesDataList: state.countriesDataList,
+    skeletonDataList: state.skeletonDataList,
+    fetchedDataSuccessfull: state.fetchedDataSuccessfull,
   };
 };
 
