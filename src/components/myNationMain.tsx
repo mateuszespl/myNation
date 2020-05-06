@@ -7,7 +7,7 @@ const Main = styled.main``;
 
 export const MyNationMain = () => {
   return (
-    <Main>
+    <Main data-test="main">
       <Navigation />
       <DisplaySection />
     </Main>
