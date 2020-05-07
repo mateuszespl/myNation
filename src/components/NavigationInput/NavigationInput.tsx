@@ -23,7 +23,11 @@ export const NavigationInput: React.FC<NavigationInputInterface> = ({
           freeSolo
           disableClearable
           fullWidth
+          value={inputValue}
           options={countriesNameList.map((countryName) => countryName)}
+          onChange={(e: any, value: any) => updateInputValue(value)}
+          inputValue={inputValue}
+          onInputChange={(event: any, value: any) => updateInputValue(value)}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -32,8 +36,6 @@ export const NavigationInput: React.FC<NavigationInputInterface> = ({
               color="secondary"
               label="Wyszukaj państwo"
               variant="outlined"
-              onChange={(e) => updateInputValue(e.target.value)}
-              value={inputValue}
               InputProps={{ ...params.InputProps, type: "search" }}
             />
           )}

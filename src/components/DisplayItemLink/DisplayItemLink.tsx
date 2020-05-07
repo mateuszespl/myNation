@@ -37,7 +37,7 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
   return (
     <Grid item>
       <StyledBox>
-        <Card raised>
+        <Card>
           <CardActionArea>
             <StyledCardMedia image={flag} title={name + "flag"} />
           </CardActionArea>

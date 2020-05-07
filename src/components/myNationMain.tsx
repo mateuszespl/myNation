@@ -5,7 +5,7 @@ import DisplaySection from "./DisplaySection/DisplaySection";
 
 const Main = styled.main``;
 
-export const MyNationMain = () => {
+export const MyNationMain: React.FC = () => {
   return (
     <Main data-test="main">
       <Navigation />
