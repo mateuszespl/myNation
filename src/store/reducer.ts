@@ -26,6 +26,7 @@ const initialState = {
   ],
   countriesNameList: [],
   fetchedDataSuccessfull: false,
+  inputValue: "",
 };
 
 export const reducer = (state = initialState, action: any) => {
@@ -36,6 +37,11 @@ export const reducer = (state = initialState, action: any) => {
         countriesDataList: action.countriesDataList,
         countriesNameList: action.countriesNameList,
         fetchedDataSuccessfull: true,
+      };
+    case actionTypes.INPUT_VALUE_UPDATE:
+      return {
+        ...state,
+        inputValue: action.inputValue,
       };
     default:
       return {

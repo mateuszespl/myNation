@@ -13,3 +13,10 @@ export const fetchData = () => {
       );
   };
 };
+
+export const updateInputValue = (inputValue: string) => {
+  return {
+    type: actionTypes.INPUT_VALUE_UPDATE,
+    inputValue: inputValue,
+  };
+};
