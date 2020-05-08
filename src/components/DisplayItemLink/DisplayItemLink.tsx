@@ -39,7 +39,7 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
       <StyledBox>
         <Card>
           <CardActionArea>
-            <StyledCardMedia image={flag} title={name + "flag"} />
+            <StyledCardMedia image={flag} title={name + " flag"} />
           </CardActionArea>
           <CardContent>
             <Typography component="h1">{name}</Typography>
