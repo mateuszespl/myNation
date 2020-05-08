@@ -9,6 +9,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -38,9 +39,11 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
     <Grid item>
       <StyledBox>
         <Card>
-          <CardActionArea>
-            <StyledCardMedia image={flag} title={name + " flag"} />
-          </CardActionArea>
+          <Link to={`/nation/${name}`}>
+            <CardActionArea>
+              <StyledCardMedia image={flag} title={name + " flag"} />
+            </CardActionArea>
+          </Link>
           <CardContent>
             <Typography component="h1">{name}</Typography>
             <Typography component="h2">{region}</Typography>

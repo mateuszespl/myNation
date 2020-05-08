@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Navigation } from "./Navigation/Navigation";
 import DisplaySection from "./DisplaySection/DisplaySection";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Nation from "./Nation/Nation";
 
 const Main = styled.main``;
 
@@ -17,6 +18,9 @@ export const MyNationMain: React.FC = () => {
           </Main>
         </Route>
         <Route path="/test">test router</Route>
+        <Route path="/nation/:nationName">
+          <Nation />
+        </Route>
       </Switch>
     </Router>
   );
