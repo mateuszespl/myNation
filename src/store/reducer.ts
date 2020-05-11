@@ -27,10 +27,20 @@ const initialState = {
   countriesNameList: [],
   fetchedDataSuccessfull: false,
   inputValue: "",
+  currentNationView: {},
+  nextNationView: "",
+  prevNationView: "",
 };
 
 export const reducer = (state = initialState, action: any) => {
   switch (action.type) {
+    case actionTypes.CURRENT_NATION_VIEW_UPDATE:
+      return {
+        ...state,
+        currentNationView: action.currentNationView,
+        prevNationView: action.prevNationView,
+        nextNationView: action.nextNationView,
+      };
     case actionTypes.FETCH_DATA:
       return {
         ...state,
