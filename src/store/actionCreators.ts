@@ -40,3 +40,8 @@ export const setCurrentNationView = (currentNation: string) => {
     });
   };
 };
+
+export const setDisplayMode = (displayMode: string) => ({
+  type: actionTypes.DISPLAY_MODE_UPDATE,
+  displayMode: displayMode,
+});

@@ -9,6 +9,7 @@ export interface DisplaySectionInterface {
   skeletonDataList: Array<number>;
   fetchData: () => any;
   fetchedDataSuccessfull: boolean;
+  displayMode: string;
 }
 
 export const DisplaySection: React.FC<DisplaySectionInterface> = ({
@@ -16,6 +17,7 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
   fetchData,
   fetchedDataSuccessfull,
   skeletonDataList,
+  displayMode,
 }) => {
   useEffect(() => {
     fetchData();
@@ -26,6 +28,7 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
         countriesDataList={countriesDataList}
         fetchedDataSuccessfull={fetchedDataSuccessfull}
         skeletonDataList={skeletonDataList}
+        displayMode={displayMode}
       />
     </Box>
   );
@@ -36,6 +39,7 @@ const mapStateToProps = (state: any) => {
     countriesDataList: state.countriesDataList,
     skeletonDataList: state.skeletonDataList,
     fetchedDataSuccessfull: state.fetchedDataSuccessfull,
+    displayMode: state.displayMode,
   };
 };
 

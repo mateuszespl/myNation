@@ -7,18 +7,30 @@ export interface DisplayListInterface {
   countriesDataList: Array<{}>;
   skeletonDataList: Array<number>;
   fetchedDataSuccessfull: boolean;
+  displayMode: string;
 }
 
 export const DisplayList: React.FC<DisplayListInterface> = ({
   countriesDataList,
   skeletonDataList,
   fetchedDataSuccessfull,
+  displayMode,
 }) => {
   return (
-    <Grid container alignItems="center" justify="space-around" spacing={3}>
+    <Grid
+      container
+      alignItems="center"
+      justify="space-around"
+      direction={displayMode === "list" ? "column" : "row"}
+      spacing={3}
+    >
       {fetchedDataSuccessfull
         ? countriesDataList.map((country: any, id) => (
-            <DisplayItemLink key={id} country={country} />
+            <DisplayItemLink
+              displayMode={displayMode}
+              key={id}
+              country={country}
+            />
           ))
         : skeletonDataList.map((key) => <DisplayItemSkeleton key={key} />)}
     </Grid>

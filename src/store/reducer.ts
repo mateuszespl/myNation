@@ -30,6 +30,7 @@ const initialState = {
   currentNationView: {},
   nextNationView: "",
   prevNationView: "",
+  displayMode: "list",
 };
 
 export const reducer = (state = initialState, action: any) => {
@@ -52,6 +53,11 @@ export const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         inputValue: action.inputValue,
+      };
+    case actionTypes.DISPLAY_MODE_UPDATE:
+      return {
+        ...state,
+        displayMode: action.displayMode,
       };
     default:
       return {
