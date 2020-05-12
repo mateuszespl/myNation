@@ -41,11 +41,6 @@ export const NavigationInput: React.FC<NavigationInputInterface> = ({
           )}
         />
       </Grid>
-      <Grid item xs={1}>
-        <IconButton aria-label="search">
-          <Search />
-        </IconButton>
-      </Grid>
     </Grid>
   );
 };
