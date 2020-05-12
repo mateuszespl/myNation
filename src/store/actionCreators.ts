@@ -19,14 +19,16 @@ export const updateInputValue = (inputValue: string) => {
     const countriesDataList = getState().countriesDataList;
     const filteredNationsDataList =
       inputValue !== ""
-        ? countriesDataList.find((country: any) => country.name === inputValue)
+        ? countriesDataList.filter((country: any) =>
+            country.name.toLowerCase().includes(inputValue.toLowerCase())
+          )
         : [];
     console.log(filteredNationsDataList);
     dispatch({
       type: actionTypes.INPUT_VALUE_UPDATE,
       inputValue: inputValue,
       filteredNationsDataList: filteredNationsDataList
-        ? [filteredNationsDataList]
+        ? filteredNationsDataList
         : [],
     });
   };
