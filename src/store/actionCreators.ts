@@ -15,9 +15,20 @@ export const fetchData = () => {
 };
 
 export const updateInputValue = (inputValue: string) => {
-  return {
-    type: actionTypes.INPUT_VALUE_UPDATE,
-    inputValue: inputValue,
+  return (dispatch: any, getState: any) => {
+    const countriesDataList = getState().countriesDataList;
+    const filteredNationsDataList =
+      inputValue !== ""
+        ? countriesDataList.find((country: any) => country.name === inputValue)
+        : [];
+    console.log(filteredNationsDataList);
+    dispatch({
+      type: actionTypes.INPUT_VALUE_UPDATE,
+      inputValue: inputValue,
+      filteredNationsDataList: filteredNationsDataList
+        ? [filteredNationsDataList]
+        : [],
+    });
   };
 };
 

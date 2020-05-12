@@ -24,6 +24,7 @@ const initialState = {
     19,
     20,
   ],
+  filteredNationsDataList: [],
   countriesNameList: [],
   fetchedDataSuccessfull: false,
   inputValue: "",
@@ -53,6 +54,7 @@ export const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         inputValue: action.inputValue,
+        filteredNationsDataList: action.filteredNationsDataList,
       };
     case actionTypes.DISPLAY_MODE_UPDATE:
       return {

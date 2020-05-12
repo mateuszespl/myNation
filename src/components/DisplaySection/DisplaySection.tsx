@@ -10,6 +10,7 @@ export interface DisplaySectionInterface {
   fetchData: () => any;
   fetchedDataSuccessfull: boolean;
   displayMode: string;
+  filteredNationsDataList: Array<any>;
 }
 
 export const DisplaySection: React.FC<DisplaySectionInterface> = ({
@@ -18,6 +19,7 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
   fetchedDataSuccessfull,
   skeletonDataList,
   displayMode,
+  filteredNationsDataList,
 }) => {
   useEffect(() => {
     fetchData();
@@ -25,7 +27,11 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
   return (
     <Box component="section">
       <DisplayList
-        countriesDataList={countriesDataList}
+        countriesDataList={
+          filteredNationsDataList.length !== 0
+            ? filteredNationsDataList
+            : countriesDataList
+        }
         fetchedDataSuccessfull={fetchedDataSuccessfull}
         skeletonDataList={skeletonDataList}
         displayMode={displayMode}
@@ -40,6 +46,7 @@ const mapStateToProps = (state: any) => {
     skeletonDataList: state.skeletonDataList,
     fetchedDataSuccessfull: state.fetchedDataSuccessfull,
     displayMode: state.displayMode,
+    filteredNationsDataList: state.filteredNationsDataList,
   };
 };
 
