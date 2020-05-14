@@ -5,7 +5,7 @@ import { MyNationMain } from "./components/MyNationMain";
 import { theme } from "./theme/theme";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import "./theme/fonts.css";
+import "./theme/global.css";
 import { ThemeProvider } from "@material-ui/core";
 
 ReactDOM.render(

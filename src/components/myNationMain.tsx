@@ -8,6 +8,8 @@ import { Box, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles({
   main: {
     background: "rgb(40,40,40)",
+    maxWidth: "100vw",
+    overflow: "hidden",
   },
 });
 

@@ -18,26 +18,26 @@ export const NavigationInput: React.FC<NavigationInputInterface> = ({
   return (
     <Grid container item alignItems="center" xs={4}>
       <Grid item xs>
-        <Autocomplete
+        {/* <Autocomplete
           freeSolo
           disableClearable
           fullWidth
           value={inputValue}
           options={countriesNameList.map((countryName) => countryName)}
-          onChange={(e: any, value: any) => updateInputValue(value)}
-          inputValue={inputValue}
           onInputChange={(event: any, value: any) => updateInputValue(value)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              fullWidth
-              size="small"
-              label="Wyszukaj państwo"
-              variant="outlined"
-              InputProps={{ ...params.InputProps, type: "search" }}
-            />
-          )}
+        renderInput={(params) => ( */}
+        <TextField
+          // {...params}
+          fullWidth
+          label="Wyszukaj państwo"
+          onChange={(e: any) => updateInputValue(e.target.value)}
+          value={inputValue}
+          size="small"
+          variant="outlined"
+          // InputProps={{ ...params.InputProps, type: "search" }}
         />
+        {/* )}
+        /> */}
       </Grid>
     </Grid>
   );

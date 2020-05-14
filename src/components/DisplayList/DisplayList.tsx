@@ -1,10 +1,13 @@
 import React from "react";
-import { Grid, styled } from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import { DisplayItemLink } from "../DisplayItemLink/DisplayItemLink";
 import { DisplayItemSkeleton } from "../DisplayItemSkeleton/DisplayItemSkeleton";
 
-const StyledGrid = styled(Grid)({
-  margin: "20px 0",
+const useStyles = makeStyles({
+  grid: {
+    margin: "20px 0",
+    minHeight: "calc(100vh - 64px)",
+  },
 });
 
 export interface DisplayListInterface {
@@ -20,8 +23,10 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
   fetchedDataSuccessfull,
   displayMode,
 }) => {
+  const classes = useStyles();
   return (
-    <StyledGrid
+    <Grid
+      className={`${classes.grid}`}
       container
       alignItems="center"
       justify="space-around"
@@ -37,6 +42,6 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
             />
           ))
         : skeletonDataList.map((key) => <DisplayItemSkeleton key={key} />)}
-    </StyledGrid>
+    </Grid>
   );
 };
