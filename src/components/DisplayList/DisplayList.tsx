@@ -1,7 +1,11 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, styled } from "@material-ui/core";
 import { DisplayItemLink } from "../DisplayItemLink/DisplayItemLink";
 import { DisplayItemSkeleton } from "../DisplayItemSkeleton/DisplayItemSkeleton";
+
+const StyledGrid = styled(Grid)({
+  margin: "20px 0",
+});
 
 export interface DisplayListInterface {
   countriesDataList: Array<{}>;
@@ -17,12 +21,12 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
   displayMode,
 }) => {
   return (
-    <Grid
+    <StyledGrid
       container
       alignItems="center"
       justify="space-around"
       direction={displayMode === "list" ? "column" : "row"}
-      spacing={3}
+      spacing={4}
     >
       {fetchedDataSuccessfull
         ? countriesDataList.map((country: any, id) => (
@@ -33,6 +37,6 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
             />
           ))
         : skeletonDataList.map((key) => <DisplayItemSkeleton key={key} />)}
-    </Grid>
+    </StyledGrid>
   );
 };

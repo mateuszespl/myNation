@@ -1,6 +1,5 @@
 import React from "react";
-import { TextField, Grid, IconButton } from "@material-ui/core";
-import { Search } from "@material-ui/icons";
+import { TextField, Grid } from "@material-ui/core";
 import { connect } from "react-redux";
 import { updateInputValue } from "../../store/actionCreators";
 import { Autocomplete } from "@material-ui/lab";
@@ -33,7 +32,6 @@ export const NavigationInput: React.FC<NavigationInputInterface> = ({
               {...params}
               fullWidth
               size="small"
-              color="secondary"
               label="Wyszukaj państwo"
               variant="outlined"
               InputProps={{ ...params.InputProps, type: "search" }}

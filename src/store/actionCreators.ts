@@ -23,7 +23,6 @@ export const updateInputValue = (inputValue: string) => {
             country.name.toLowerCase().includes(inputValue.toLowerCase())
           )
         : [];
-    console.log(filteredNationsDataList);
     dispatch({
       type: actionTypes.INPUT_VALUE_UPDATE,
       inputValue: inputValue,

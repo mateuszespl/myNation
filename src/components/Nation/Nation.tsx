@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter, Redirect } from "react-router-dom";
 import { setCurrentNationView } from "../../store/actionCreators";
+import { Grid } from "@material-ui/core";
+import { NationInfoList } from "../NationInfoList/NationInfoList";
 
 export interface NationInterface {
   location: any;
@@ -19,7 +21,6 @@ export const Nation: React.FC<NationInterface> = ({
   countriesDataList,
 }) => {
   const nationName = location.pathname.split("/nation/")[1];
-  const { capital } = currentNationView;
   useEffect(() => {
     nationName !== "" && setCurrentNationView(nationName);
   }, []);
@@ -28,10 +29,10 @@ export const Nation: React.FC<NationInterface> = ({
       {countriesDataList.length === 0 ? (
         <Redirect to="/" />
       ) : (
-        <div>
+        <Grid container alignItems="center" justify="center">
+          <NationInfoList currentNationView={currentNationView} />
           <h1>{nationName}</h1>
-          {capital}
-        </div>
+        </Grid>
       )}
     </>
   );

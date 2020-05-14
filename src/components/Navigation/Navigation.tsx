@@ -8,7 +8,7 @@ import NavigationButtonGroup from "../NavigationButtonGroup/NavigationButtonGrou
 
 export const Navigation: React.FC = () => {
   return (
-    <AppBar position="relative" color="primary">
+    <AppBar position="relative" color="default">
       <Toolbar>
         <Grid container alignItems="center" justify="space-around">
           <Typography variant="h6">myNation</Typography>

@@ -7,25 +7,25 @@ import {
   CardContent,
   Typography,
   Grid,
+  styled,
 } from "@material-ui/core";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const StyledBox = styled(Box)<{ displayMode: string }>`
-  position: relative;
-  height: 200px;
-  width: ${({ displayMode }) => (displayMode === "list" ? "85vw" : "300px")};
-  margin: 20px;
-`;
+// const StyledBox = styled(Box)<{ displayMode: string }>`
+//   position: relative;
+//   height: 200px;
+//   width: ${({ displayMode }) => (displayMode === "list" ? "85vw" : "300px")};
+//   margin: 20px;
+// `;
 
-const StyledCard = styled(Card)<{ displayMode: string }>`
-  display: ${({ displayMode }) => (displayMode === "list" ? "flex" : "")};
-`;
+// const StyledCard = styled(Card)( {props}) => ({
+//   display: ${({ displayMode }) => (displayMode === "list" ? "flex" : "")}
+// })
 
-const StyledCardMedia = styled(CardMedia)`
-  height: 160px;
-  width: 300px;
-`;
+const StyledCardMedia = styled(CardMedia)({
+  height: "160px",
+  width: "300px",
+});
 
 export interface DisplayItemLinkInterface {
   country: {
@@ -43,8 +43,8 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
   const { name, region, flag } = country;
   return (
     <Grid item>
-      <StyledBox displayMode={displayMode}>
-        <StyledCard displayMode={displayMode}>
+      <Box>
+        <Card>
           <Link to={`/nation/${name}`}>
             <CardActionArea>
               <StyledCardMedia image={flag} title={name + " flag"} />
@@ -54,8 +54,8 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
             <Typography component="h1">{name}</Typography>
             <Typography component="h2">{region}</Typography>
           </CardContent>
-        </StyledCard>
-      </StyledBox>
+        </Card>
+      </Box>
     </Grid>
   );
 };
