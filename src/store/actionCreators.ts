@@ -18,7 +18,7 @@ export const updateInputValue = (inputValue: string) => {
   return (dispatch: any, getState: any) => {
     const countriesDataList = getState().countriesDataList;
     const filteredNationsDataList =
-      inputValue !== ""
+      inputValue.length > 2
         ? countriesDataList.filter((country: any) =>
             country.name.toLowerCase().includes(inputValue.toLowerCase())
           )

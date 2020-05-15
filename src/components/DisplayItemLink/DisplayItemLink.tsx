@@ -27,7 +27,7 @@ interface propsInterface {
 const useStyles = makeStyles({
   box: (props: propsInterface) => ({
     position: "relative",
-    height: "200px",
+    height: props.displayMode === "list" ? "160px" : "200px",
     width: props.displayMode === "list" ? "85vw" : "300px",
     margin: "20px",
   }),
@@ -113,12 +113,14 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
               </Grid>
               {displayMode === "list" && (
                 <Grid item container alignItems="center" spacing={1}>
-                  <Grid item>
-                    <Chip
-                      label={`Stolica: ${capital}`}
-                      icon={<AccountBalance />}
-                    />
-                  </Grid>
+                  {capital && (
+                    <Grid item>
+                      <Chip
+                        label={`Stolica: ${capital}`}
+                        icon={<AccountBalance />}
+                      />
+                    </Grid>
+                  )}
                   <Grid item>
                     <Chip
                       label={`Populacja: ${population} os`}
