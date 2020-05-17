@@ -4,13 +4,13 @@ export const fetchData = () => {
   return (dispatch: any) => {
     fetch("https://restcountries.eu/rest/v2/all")
       .then((response) => response.json())
-      .then((data) =>
-        dispatch({
+      .then((data) => {
+        return dispatch({
           type: actionTypes.FETCH_DATA,
           countriesDataList: [...data],
-          countriesNameList: [...data.map((country: any) => country.name)],
-        })
-      );
+          countriesNameList: [...data.map((nation: any) => nation.name)],
+        });
+      });
   };
 };
 
@@ -19,8 +19,8 @@ export const updateInputValue = (inputValue: string) => {
     const countriesDataList = getState().countriesDataList;
     const filteredNationsDataList =
       inputValue.length > 2
-        ? countriesDataList.filter((country: any) =>
-            country.name.toLowerCase().includes(inputValue.toLowerCase())
+        ? countriesDataList.filter((nation: any) =>
+            nation.name.toLowerCase().includes(inputValue.toLowerCase())
           )
         : [];
     dispatch({
@@ -38,7 +38,7 @@ export const setCurrentNationView = (currentNation: string) => {
     const countriesDataList = getState().countriesDataList;
     const countriesNameList = getState().countriesNameList;
     const currentNationView = countriesDataList.find(
-      (country: any) => country.name === currentNation
+      (nation: any) => nation.name === currentNation
     );
     const currentIndex = countriesNameList.indexOf(currentNation);
     const prevNationView = countriesNameList[currentIndex - 1];
@@ -57,3 +57,20 @@ export const setDisplayMode = (displayMode: string) => ({
   type: actionTypes.DISPLAY_MODE_UPDATE,
   displayMode: displayMode,
 });
+
+export const updateSelectValue = (selectValue: string) => {
+  return (dispatch: any, getState: any) => {
+    const countriesDataList = getState().countriesDataList;
+    const filteredNationsDataList = countriesDataList.filter((country: any) =>
+      country.region.toLowerCase().includes(selectValue.toLowerCase())
+    );
+    dispatch({
+      type: actionTypes.SELECT_VALUE_UPDATE,
+      selectValue: selectValue,
+      filteredNationsDataList:
+        filteredNationsDataList && selectValue !== "All"
+          ? filteredNationsDataList
+          : [],
+    });
+  };
+};

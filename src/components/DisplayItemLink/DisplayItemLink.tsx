@@ -39,6 +39,11 @@ const useStyles = makeStyles({
     height: "160px",
     width: "300px",
   },
+  cardContent: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   nationName: {
     fontSize: "18px",
     fontWeight: 800,
@@ -92,7 +97,7 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
               />
             </CardActionArea>
           </Link>
-          <CardContent>
+          <CardContent className={`${classes.cardContent}`}>
             <Grid
               container
               alignItems="center"
@@ -100,6 +105,7 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
               wrap="nowrap"
             >
               <Grid
+                xs={displayMode === "list" ? 3 : undefined}
                 item
                 container
                 direction={displayMode === "list" ? "column" : "row"}
@@ -109,10 +115,16 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
                 <Typography className={`${classes.nationName}`} component="h1">
                   {name}
                 </Typography>
-                <Chip label={region} />
+                {region && <Chip label={region} />}
               </Grid>
               {displayMode === "list" && (
-                <Grid item container alignItems="center" spacing={1}>
+                <Grid
+                  item
+                  container
+                  alignItems="center"
+                  xs={displayMode === "list" ? true : undefined}
+                  spacing={1}
+                >
                   {capital && (
                     <Grid item>
                       <Chip
@@ -128,10 +140,7 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
                     />
                   </Grid>
                   <Grid item>
-                    <Chip
-                      label={`Powierzchnia: ${area / 1000} km²`}
-                      icon={<Map />}
-                    />
+                    <Chip label={`Powierzchnia: ${area} km²`} icon={<Map />} />
                   </Grid>
                   <Grid item>
                     <Chip

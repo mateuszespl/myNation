@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import NavigationInput from "../NavigationInput/NavigationInput";
 import { Grid, makeStyles } from "@material-ui/core";
 import NavigationButtonGroup from "../NavigationButtonGroup/NavigationButtonGroup";
+import NavigationSelect from "../NavigationSelect/NavigationSelect";
 
 const useStyles = makeStyles({
   appBar: {
@@ -20,6 +21,7 @@ export const Navigation: React.FC = () => {
         <Grid container alignItems="center" justify="space-around">
           <Typography variant="h6">myNation</Typography>
           <NavigationInput />
+          <NavigationSelect />
           <NavigationButtonGroup />
         </Grid>
       </Toolbar>

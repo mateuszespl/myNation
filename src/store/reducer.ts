@@ -32,6 +32,7 @@ const initialState = {
   nextNationView: "",
   prevNationView: "",
   displayMode: "list",
+  selectValue: "All",
 };
 
 export const reducer = (state = initialState, action: any) => {
@@ -60,6 +61,12 @@ export const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         displayMode: action.displayMode,
+      };
+    case actionTypes.SELECT_VALUE_UPDATE:
+      return {
+        ...state,
+        selectValue: action.selectValue,
+        filteredNationsDataList: action.filteredNationsDataList,
       };
     default:
       return {
