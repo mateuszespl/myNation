@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Fab } from "@material-ui/core";
 import { NavigateBefore, NavigateNext } from "@material-ui/icons";
 import { setCurrentNationView } from "./../../store/actionCreators";
+import { useHistory } from "react-router-dom";
 
 export interface NationButtonInterface {
   next?: boolean;
@@ -17,9 +18,11 @@ export const NationButton: React.FC<NationButtonInterface> = ({
   nextNationView,
   prevNationView,
 }) => {
+  const history = useHistory();
   const handleClick = (e: any, next?: boolean) => {
     e.preventDefault();
     setCurrentNationView(next ? nextNationView : prevNationView);
+    history.push(next ? nextNationView : prevNationView);
   };
   return (
     <Fab>

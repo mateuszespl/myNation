@@ -32,3 +32,5 @@ export const MyNationMain: React.FC = () => {
     </Router>
   );
 };
+
+export default MyNationMain;

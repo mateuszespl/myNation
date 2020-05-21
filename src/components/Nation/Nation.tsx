@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 export interface NationInterface {
   location: any;
   setCurrentNationView: (currentNation: string) => any;
-  currentNationView: { flag: string; capital: string };
+  currentNationView: { flag: string; capital: string; name: string };
   countriesDataList: Array<any>;
 }
 
@@ -59,10 +59,10 @@ export const Nation: React.FC<NationInterface> = ({
             <NationButton />
             {currentNationView ? (
               <Card>
-                <CardHeader title={nationName} />
+                <CardHeader title={currentNationView.name} />
                 <CardMedia
                   className={classes.cardMedia}
-                  image={currentNationView && currentNationView.flag}
+                  image={currentNationView.flag}
                 />
                 <NationInfoList currentNationView={currentNationView} />
               </Card>

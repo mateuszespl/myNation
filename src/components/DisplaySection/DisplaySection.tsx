@@ -25,7 +25,7 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
   home,
 }) => {
   useEffect(() => {
-    fetchData();
+    countriesDataList.length === 0 && fetchData();
   }, []);
   return (
     <Box component="section">
