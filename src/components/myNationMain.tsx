@@ -2,7 +2,6 @@ import React from "react";
 import { Navigation } from "./Navigation/Navigation";
 import DisplaySection from "./DisplaySection/DisplaySection";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Nation from "./Nation/Nation";
 import { Box, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -20,13 +19,14 @@ export const MyNationMain: React.FC = () => {
       <Switch>
         <Route exact path="/">
           <Box className={`${classes.main}`} component="main" data-test="main">
-            <Navigation />
-            <DisplaySection />
+            <Navigation home />
+            <DisplaySection home />
           </Box>
         </Route>
         <Route path="/test">test router</Route>
         <Route path="/nation/:nationName">
-          <Nation />
+          <Navigation />
+          <DisplaySection />
         </Route>
       </Switch>
     </Router>

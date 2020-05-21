@@ -3,6 +3,7 @@ import { Box } from "@material-ui/core";
 import { connect } from "react-redux";
 import { fetchData } from "../../store/actionCreators";
 import { DisplayList } from "../DisplayList/DisplayList";
+import Nation from "../Nation/Nation";
 
 export interface DisplaySectionInterface {
   countriesDataList: Array<{}>;
@@ -11,6 +12,7 @@ export interface DisplaySectionInterface {
   fetchedDataSuccessfull: boolean;
   displayMode: string;
   filteredNationsDataList: Array<any>;
+  home?: boolean;
 }
 
 export const DisplaySection: React.FC<DisplaySectionInterface> = ({
@@ -20,22 +22,27 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
   skeletonDataList,
   displayMode,
   filteredNationsDataList,
+  home,
 }) => {
   useEffect(() => {
     fetchData();
   }, []);
   return (
     <Box component="section">
-      <DisplayList
-        countriesDataList={
-          filteredNationsDataList.length !== 0
-            ? filteredNationsDataList
-            : countriesDataList
-        }
-        fetchedDataSuccessfull={fetchedDataSuccessfull}
-        skeletonDataList={skeletonDataList}
-        displayMode={displayMode}
-      />
+      {home ? (
+        <DisplayList
+          countriesDataList={
+            filteredNationsDataList.length !== 0
+              ? filteredNationsDataList
+              : countriesDataList
+          }
+          fetchedDataSuccessfull={fetchedDataSuccessfull}
+          skeletonDataList={skeletonDataList}
+          displayMode={displayMode}
+        />
+      ) : (
+        <Nation />
+      )}
     </Box>
   );
 };

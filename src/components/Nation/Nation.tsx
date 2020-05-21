@@ -2,8 +2,17 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter, Redirect } from "react-router-dom";
 import { setCurrentNationView } from "../../store/actionCreators";
-import { Grid, Box, makeStyles } from "@material-ui/core";
+import {
+  Grid,
+  Box,
+  makeStyles,
+  CardHeader,
+  Card,
+  CardMedia,
+  CircularProgress,
+} from "@material-ui/core";
 import { NationInfoList } from "../NationInfoList/NationInfoList";
+import NationButton from "../NationButton/NationButton";
 
 const useStyles = makeStyles({
   main: {
@@ -12,15 +21,20 @@ const useStyles = makeStyles({
     overflow: "hidden",
     minWidth: "100vw",
     minHeight: "100vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  cardMedia: {
+    width: "600px",
+    height: "200px",
   },
 });
 
 export interface NationInterface {
   location: any;
   setCurrentNationView: (currentNation: string) => any;
-  currentNationView: {
-    capital: string;
-  };
+  currentNationView: { flag: string; capital: string };
   countriesDataList: Array<any>;
 }
 
@@ -41,9 +55,21 @@ export const Nation: React.FC<NationInterface> = ({
         <Redirect to="/" />
       ) : (
         <Box component="main" className={`${classes.main}`}>
-          <Grid container alignItems="center" justify="center">
-            <NationInfoList currentNationView={currentNationView} />
-            <h1>{nationName}</h1>
+          <Grid container alignItems="center" justify="space-around">
+            <NationButton />
+            {currentNationView ? (
+              <Card>
+                <CardHeader title={nationName} />
+                <CardMedia
+                  className={classes.cardMedia}
+                  image={currentNationView && currentNationView.flag}
+                />
+                <NationInfoList currentNationView={currentNationView} />
+              </Card>
+            ) : (
+              <CircularProgress />
+            )}
+            <NationButton next />
           </Grid>
         </Box>
       )}
