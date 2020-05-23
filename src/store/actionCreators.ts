@@ -9,6 +9,7 @@ export const fetchData = () => {
           type: actionTypes.FETCH_DATA,
           countriesDataList: [...data],
           countriesNameList: [...data.map((nation: any) => nation.name)],
+          infiniteScrollNationsList: [...data.slice(0, 20)],
         });
       });
   };
@@ -71,6 +72,27 @@ export const updateSelectValue = (selectValue: string) => {
         filteredNationsDataList && selectValue !== "All"
           ? filteredNationsDataList
           : [],
+    });
+  };
+};
+
+export const updateInfiniteScroll = () => {
+  return (dispatch: any, getState: any) => {
+    const infiniteScrollPage = getState().infiniteScrollPage;
+    const countriesDataList = getState().countriesDataList;
+    const infiniteScrollNationsList = getState().infiniteScrollNationsList;
+    const nextInfiniteScrollPage = infiniteScrollPage + 1;
+    const updatedInfiniteScrollNationsList = [
+      ...infiniteScrollNationsList,
+      ...countriesDataList.slice(
+        infiniteScrollPage * 20,
+        nextInfiniteScrollPage * 20
+      ),
+    ];
+    dispatch({
+      type: actionTypes.UPDATE_INFINITE_SCROLL,
+      infiniteScrollNationsList: updatedInfiniteScrollNationsList,
+      infiniteScrollPage: nextInfiniteScrollPage,
     });
   };
 };

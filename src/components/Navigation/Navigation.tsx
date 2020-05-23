@@ -7,7 +7,7 @@ import { Grid, makeStyles, Button } from "@material-ui/core";
 import NavigationButtonGroup from "../NavigationButtonGroup/NavigationButtonGroup";
 import NavigationSelect from "../NavigationSelect/NavigationSelect";
 import { ArrowBack } from "@material-ui/icons";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   appBar: {
@@ -34,6 +34,7 @@ export const Navigation: React.FC<NavigationInterface> = ({ home }) => {
           {home ? (
             <>
               <NavigationInput />
+              <NavigationSelect region />
               <NavigationSelect />
               <NavigationButtonGroup />
             </>

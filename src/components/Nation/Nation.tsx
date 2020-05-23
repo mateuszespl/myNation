@@ -10,6 +10,7 @@ import {
   Card,
   CardMedia,
   CircularProgress,
+  CardContent,
 } from "@material-ui/core";
 import { NationInfoList } from "../NationInfoList/NationInfoList";
 import NationButton from "../NationButton/NationButton";
@@ -34,7 +35,16 @@ const useStyles = makeStyles({
 export interface NationInterface {
   location: any;
   setCurrentNationView: (currentNation: string) => any;
-  currentNationView: { flag: string; capital: string; name: string };
+  currentNationView: {
+    flag: string;
+    capital: string;
+    name: string;
+    population: number;
+    area: number;
+    currencies: Array<any>;
+    gini: number;
+    alpha3Code: string;
+  };
   countriesDataList: Array<any>;
 }
 
@@ -64,7 +74,9 @@ export const Nation: React.FC<NationInterface> = ({
                   className={classes.cardMedia}
                   image={currentNationView.flag}
                 />
-                <NationInfoList currentNationView={currentNationView} />
+                <CardContent>
+                  <NationInfoList currentNationView={currentNationView} />
+                </CardContent>
               </Card>
             ) : (
               <CircularProgress />

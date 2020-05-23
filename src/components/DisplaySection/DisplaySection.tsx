@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Box } from "@material-ui/core";
 import { connect } from "react-redux";
 import { fetchData } from "../../store/actionCreators";
-import { DisplayList } from "../DisplayList/DisplayList";
+import DisplayList from "../DisplayList/DisplayList";
 import Nation from "../Nation/Nation";
 
 export interface DisplaySectionInterface {
@@ -18,33 +18,12 @@ export interface DisplaySectionInterface {
 export const DisplaySection: React.FC<DisplaySectionInterface> = ({
   countriesDataList,
   fetchData,
-  fetchedDataSuccessfull,
-  skeletonDataList,
-  displayMode,
-  filteredNationsDataList,
   home,
 }) => {
   useEffect(() => {
     countriesDataList.length === 0 && fetchData();
   }, []);
-  return (
-    <Box component="section">
-      {home ? (
-        <DisplayList
-          countriesDataList={
-            filteredNationsDataList.length !== 0
-              ? filteredNationsDataList
-              : countriesDataList
-          }
-          fetchedDataSuccessfull={fetchedDataSuccessfull}
-          skeletonDataList={skeletonDataList}
-          displayMode={displayMode}
-        />
-      ) : (
-        <Nation />
-      )}
-    </Box>
-  );
+  return <Box component="section">{home ? <DisplayList /> : <Nation />}</Box>;
 };
 
 const mapStateToProps = (state: any) => {

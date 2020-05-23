@@ -168,3 +168,5 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
     </Grid>
   );
 };
+
+export default React.memo(DisplayItemLink);

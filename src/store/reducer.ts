@@ -26,6 +26,8 @@ const initialState = {
   ],
   filteredNationsDataList: [],
   countriesNameList: [],
+  infiniteScrollNationsList: [],
+  infiniteScrollPage: 0,
   fetchedDataSuccessfull: false,
   inputValue: "",
   currentNationView: {},
@@ -37,6 +39,12 @@ const initialState = {
 
 export const reducer = (state = initialState, action: any) => {
   switch (action.type) {
+    case actionTypes.UPDATE_INFINITE_SCROLL:
+      return {
+        ...state,
+        infiniteScrollPage: action.infiniteScrollPage,
+        infiniteScrollNationsList: action.infiniteScrollNationsList,
+      };
     case actionTypes.CURRENT_NATION_VIEW_UPDATE:
       return {
         ...state,
@@ -50,6 +58,7 @@ export const reducer = (state = initialState, action: any) => {
         countriesDataList: action.countriesDataList,
         countriesNameList: action.countriesNameList,
         fetchedDataSuccessfull: true,
+        infiniteScrollNationsList: action.infiniteScrollNationsList,
       };
     case actionTypes.INPUT_VALUE_UPDATE:
       return {
