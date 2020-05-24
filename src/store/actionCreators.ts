@@ -175,10 +175,9 @@ export const updateInfiniteScroll = () => {
     const infiniteScrollPage = getState().infiniteScrollPage;
     const countriesDataList = getState().countriesDataList;
     const infiniteScrollNationsList = getState().infiniteScrollNationsList;
-    const selectSortValue = getState().selectSortValue;
     const nextInfiniteScrollPage = infiniteScrollPage + 1;
-    const infiniteNationsCount = getState().infiniteNationsCount;
-    const updatedInfiniteNationsCount = infiniteNationsCount + 20;
+    const infiniteScrollNationsCount = getState().infiniteScrollNationsCount;
+    const updatedInfiniteScrollNationsCount = infiniteScrollNationsCount + 20;
     const updatedInfiniteScrollNationsList = [
       ...infiniteScrollNationsList,
       ...countriesDataList.slice(
@@ -190,7 +189,7 @@ export const updateInfiniteScroll = () => {
       type: actionTypes.UPDATE_INFINITE_SCROLL,
       infiniteScrollNationsList: updatedInfiniteScrollNationsList,
       infiniteScrollPage: nextInfiniteScrollPage,
-      infiniteNationsCount: updatedInfiniteNationsCount,
+      infiniteScrollNationsCount: updatedInfiniteScrollNationsCount,
     });
   };
 };
