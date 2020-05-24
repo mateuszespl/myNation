@@ -4,13 +4,15 @@ import { TextField, MenuItem } from "@material-ui/core";
 import { updateSelectValue } from "../../store/actionCreators";
 
 export interface NavigationSelectInterface {
-  selectValue: string;
-  updateSelectValue: (e: any) => any;
+  selectRegionValue: string;
+  selectSortValue: string;
+  updateSelectValue: (selectRegionValue: any, selectSortValue: any) => any;
   region?: boolean;
 }
 
 export const NavigationSelect: React.FC<NavigationSelectInterface> = ({
-  selectValue,
+  selectSortValue,
+  selectRegionValue,
   updateSelectValue,
   region,
 }) => {
@@ -20,8 +22,8 @@ export const NavigationSelect: React.FC<NavigationSelectInterface> = ({
         <TextField
           id="select"
           label="Region"
-          value={selectValue}
-          onChange={(e) => updateSelectValue(e.target.value)}
+          value={selectRegionValue}
+          onChange={(e) => updateSelectValue(e.target.value, undefined)}
           select
           variant="outlined"
           size="small"
@@ -38,17 +40,17 @@ export const NavigationSelect: React.FC<NavigationSelectInterface> = ({
         <TextField
           id="select"
           label="Sortuj"
-          value={selectValue}
-          onChange={(e) => updateSelectValue(e.target.value)}
+          value={selectSortValue}
+          onChange={(e) => updateSelectValue(undefined, e.target.value)}
           select
           variant="outlined"
           size="small"
         >
-          <MenuItem value="All">Brak</MenuItem>
-          <MenuItem value="All">Największa populacja</MenuItem>
-          <MenuItem value="Asia">Najmniejsza populacja</MenuItem>
-          <MenuItem value="Africa">Największa powierzchnia</MenuItem>
-          <MenuItem value="Americas">Najmniejsza powierzchnia</MenuItem>
+          <MenuItem value="None">Brak</MenuItem>
+          <MenuItem value="PopulationH">Największa populacja</MenuItem>
+          <MenuItem value="PopulationL">Najmniejsza populacja</MenuItem>
+          <MenuItem value="AreaH">Największa powierzchnia</MenuItem>
+          <MenuItem value="AreaL">Najmniejsza powierzchnia</MenuItem>
         </TextField>
       )}
     </>
@@ -57,14 +59,17 @@ export const NavigationSelect: React.FC<NavigationSelectInterface> = ({
 
 const mapStateToProps = (state: any) => {
   return {
-    selectValue: state.selectValue,
+    selectRegionValue: state.selectRegionValue,
+    selectSortValue: state.selectSortValue,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    updateSelectValue: (selectValue: string) =>
-      dispatch(updateSelectValue(selectValue)),
+    updateSelectValue: (
+      selectRegionValue: string | undefined,
+      selectSortValue: string | undefined
+    ) => dispatch(updateSelectValue(selectRegionValue, selectSortValue)),
   };
 };
 

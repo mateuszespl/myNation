@@ -59,20 +59,114 @@ export const setDisplayMode = (displayMode: string) => ({
   displayMode: displayMode,
 });
 
-export const updateSelectValue = (selectValue: string) => {
+export const updateSelectValue = (
+  selectRegionValue: string | undefined,
+  selectSortValue: string | undefined
+) => {
   return (dispatch: any, getState: any) => {
     const countriesDataList = getState().countriesDataList;
-    const filteredNationsDataList = countriesDataList.filter((country: any) =>
-      country.region.toLowerCase().includes(selectValue.toLowerCase())
-    );
-    dispatch({
-      type: actionTypes.SELECT_VALUE_UPDATE,
-      selectValue: selectValue,
-      filteredNationsDataList:
-        filteredNationsDataList && selectValue !== "All"
-          ? filteredNationsDataList
-          : [],
-    });
+    const selectRegionValueRedux = getState().selectRegionValue;
+    const selectSortValueRedux = getState().selectSortValue;
+    const filteredNationsDataListRedux = getState().filteredNationsDataList;
+    const infiniteScrollNationsList = getState().infiniteScrollNationsList;
+    const infiniteScrollNationsCount = getState().infiniteScrollNationsCount;
+
+    if (selectRegionValue !== undefined && selectSortValue === undefined) {
+      let filteredNationsDataList;
+      switch (selectRegionValue) {
+        case "All":
+          filteredNationsDataList = [];
+          break;
+        default:
+          filteredNationsDataList = countriesDataList.filter((country: any) =>
+            country.region
+              .toLowerCase()
+              .includes(selectRegionValue.toLowerCase())
+          );
+      }
+      dispatch({
+        type: actionTypes.SELECT_VALUE_UPDATE,
+        selectRegionValue: selectRegionValue,
+        selectSortValue: selectSortValueRedux,
+        filteredNationsDataList:
+          filteredNationsDataList && selectRegionValue !== "All"
+            ? filteredNationsDataList
+            : [],
+        infiniteScrollNationsList: infiniteScrollNationsList,
+      });
+    } else {
+      let sortedFilteredNationsDataList;
+      switch (selectSortValue) {
+        case "PopulationH":
+          sortedFilteredNationsDataList = [
+            ...countriesDataList,
+          ].sort((a: any, b: any) =>
+            a.population < b.population
+              ? 1
+              : a.population === b.population
+              ? a.population < b.population
+                ? 1
+                : -1
+              : -1
+          );
+          break;
+        case "PopulationL":
+          sortedFilteredNationsDataList = [
+            ...countriesDataList,
+          ].sort((a: any, b: any) =>
+            a.population > b.population
+              ? 1
+              : a.population === b.population
+              ? a.population > b.population
+                ? 1
+                : -1
+              : -1
+          );
+          break;
+        case "AreaL":
+          sortedFilteredNationsDataList = [
+            ...countriesDataList,
+          ].sort((a: any, b: any) =>
+            a.area > b.area
+              ? 1
+              : a.area === b.area
+              ? a.area > b.area
+                ? 1
+                : -1
+              : -1
+          );
+          break;
+        case "AreaH":
+          sortedFilteredNationsDataList = [
+            ...countriesDataList,
+          ].sort((a: any, b: any) =>
+            a.area > b.area
+              ? -1
+              : a.area === b.area
+              ? a.area > b.area
+                ? -1
+                : 1
+              : 1
+          );
+          break;
+        case "None":
+          sortedFilteredNationsDataList = filteredNationsDataListRedux;
+          break;
+      }
+      dispatch({
+        type: actionTypes.SELECT_VALUE_UPDATE,
+        selectSortValue: selectSortValue,
+        selectRegionValue: selectRegionValueRedux,
+        filteredNationsDataList: filteredNationsDataListRedux,
+        infiniteScrollNationsList:
+          selectSortValue === "None"
+            ? [...countriesDataList].slice(0, infiniteScrollNationsCount)
+            : sortedFilteredNationsDataList.slice(
+                0,
+                infiniteScrollNationsCount
+              ),
+      });
+    }
   };
 };
 
@@ -81,7 +175,10 @@ export const updateInfiniteScroll = () => {
     const infiniteScrollPage = getState().infiniteScrollPage;
     const countriesDataList = getState().countriesDataList;
     const infiniteScrollNationsList = getState().infiniteScrollNationsList;
+    const selectSortValue = getState().selectSortValue;
     const nextInfiniteScrollPage = infiniteScrollPage + 1;
+    const infiniteNationsCount = getState().infiniteNationsCount;
+    const updatedInfiniteNationsCount = infiniteNationsCount + 20;
     const updatedInfiniteScrollNationsList = [
       ...infiniteScrollNationsList,
       ...countriesDataList.slice(
@@ -93,6 +190,7 @@ export const updateInfiniteScroll = () => {
       type: actionTypes.UPDATE_INFINITE_SCROLL,
       infiniteScrollNationsList: updatedInfiniteScrollNationsList,
       infiniteScrollPage: nextInfiniteScrollPage,
+      infiniteNationsCount: updatedInfiniteNationsCount,
     });
   };
 };

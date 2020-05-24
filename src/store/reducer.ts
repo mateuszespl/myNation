@@ -27,14 +27,16 @@ const initialState = {
   filteredNationsDataList: [],
   countriesNameList: [],
   infiniteScrollNationsList: [],
-  infiniteScrollPage: 0,
+  infiniteScrollPage: 1,
+  infiniteScrollNationsCount: 20,
   fetchedDataSuccessfull: false,
   inputValue: "",
   currentNationView: {},
   nextNationView: "",
   prevNationView: "",
   displayMode: "list",
-  selectValue: "All",
+  selectRegionValue: "All",
+  selectSortValue: "None",
 };
 
 export const reducer = (state = initialState, action: any) => {
@@ -44,6 +46,7 @@ export const reducer = (state = initialState, action: any) => {
         ...state,
         infiniteScrollPage: action.infiniteScrollPage,
         infiniteScrollNationsList: action.infiniteScrollNationsList,
+        infiniteScrollNationsCount: action.infiniteScrollNationsCount,
       };
     case actionTypes.CURRENT_NATION_VIEW_UPDATE:
       return {
@@ -74,8 +77,10 @@ export const reducer = (state = initialState, action: any) => {
     case actionTypes.SELECT_VALUE_UPDATE:
       return {
         ...state,
-        selectValue: action.selectValue,
+        selectRegionValue: action.selectRegionValue,
+        selectSortValue: action.selectSortValue,
         filteredNationsDataList: action.filteredNationsDataList,
+        infiniteScrollNationsList: action.infiniteScrollNationsList,
       };
     default:
       return {

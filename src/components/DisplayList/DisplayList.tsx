@@ -69,7 +69,7 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
             direction={displayMode === "list" ? "column" : "row"}
             spacing={4}
           >
-            {(filteredNationsDataList.length !== 0
+            {(filteredNationsDataList.length > 0
               ? filteredNationsDataList
               : infiniteScrollNationsList
             ).map((country: any, id: number) => (
