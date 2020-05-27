@@ -55,12 +55,14 @@ export const NationInfoList: React.FC<NationInfoListInterface> = ({
             </ListItemIcon>
             <ListItemText>Powierzchnia: {area} km²</ListItemText>
           </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <MonetizationOn />
-            </ListItemIcon>
-            <ListItemText>Waluta: {currencies[0].code}</ListItemText>
-          </ListItem>
+          {currencies && (
+            <ListItem>
+              <ListItemIcon>
+                <MonetizationOn />
+              </ListItemIcon>
+              <ListItemText>Waluta: {currencies[0].code}</ListItemText>
+            </ListItem>
+          )}
           {gini && (
             <ListItem>
               <ListItemIcon>
