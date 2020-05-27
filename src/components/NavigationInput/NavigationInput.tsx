@@ -8,15 +8,17 @@ export interface NavigationInputInterface {
   inputValue: string;
   updateInputValue: any;
   countriesNameList: string[];
+  matches: boolean;
 }
 
 export const NavigationInput: React.FC<NavigationInputInterface> = ({
   inputValue,
   updateInputValue,
   countriesNameList,
+  matches,
 }) => {
   return (
-    <Grid container item alignItems="center" xs={4}>
+    <Grid container item alignItems="center" xs={!matches ? 4 : 7}>
       <Grid item xs>
         {/* <Autocomplete
           freeSolo

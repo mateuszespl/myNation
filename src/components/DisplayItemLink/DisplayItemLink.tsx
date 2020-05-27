@@ -9,6 +9,7 @@ import {
   Grid,
   makeStyles,
   Chip,
+  useMediaQuery,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import {
@@ -21,7 +22,7 @@ import {
 } from "@material-ui/icons";
 
 interface propsInterface {
-  displayMode: string;
+  displayMode?: string;
 }
 
 const useStyles = makeStyles({
@@ -80,6 +81,8 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
     capital,
     alpha3Code,
   } = country;
+  const matches = useMediaQuery("(max-width:1000px)");
+  const matches1 = useMediaQuery("(max-width:800px");
   const props = {
     displayMode: displayMode,
   };
@@ -105,7 +108,15 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
               wrap="nowrap"
             >
               <Grid
-                xs={displayMode === "list" ? 3 : undefined}
+                xs={
+                  displayMode === "list"
+                    ? matches
+                      ? matches1
+                        ? true
+                        : 5
+                      : 3
+                    : undefined
+                }
                 item
                 container
                 direction={displayMode === "list" ? "column" : "row"}
@@ -117,7 +128,7 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
                 </Typography>
                 {region && <Chip label={region} />}
               </Grid>
-              {displayMode === "list" && (
+              {displayMode === "list" && !matches1 && (
                 <Grid
                   item
                   container
@@ -142,23 +153,27 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
                   <Grid item>
                     <Chip label={`Powierzchnia: ${area} km²`} icon={<Map />} />
                   </Grid>
-                  <Grid item>
-                    <Chip
-                      label={`Waluta: ${currencies[0].code}`}
-                      icon={<MonetizationOn />}
-                    />
-                  </Grid>
-                  {gini && (
-                    <Grid item>
-                      <Chip
-                        label={`Współczynnik Giniego: ${gini}`}
-                        icon={<BarChart />}
-                      />
-                    </Grid>
+                  {!matches && (
+                    <>
+                      <Grid item>
+                        <Chip
+                          label={`Waluta: ${currencies[0].code}`}
+                          icon={<MonetizationOn />}
+                        />
+                      </Grid>
+                      {gini && (
+                        <Grid item>
+                          <Chip
+                            label={`Współczynnik Giniego: ${gini}`}
+                            icon={<BarChart />}
+                          />
+                        </Grid>
+                      )}
+                      <Grid item>
+                        <Chip label={`ISO-3: ${alpha3Code}`} icon={<Flag />} />
+                      </Grid>
+                    </>
                   )}
-                  <Grid item>
-                    <Chip label={`ISO-3: ${alpha3Code}`} icon={<Flag />} />
-                  </Grid>
                 </Grid>
               )}
             </Grid>

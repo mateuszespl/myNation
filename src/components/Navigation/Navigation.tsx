@@ -3,7 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import NavigationInput from "../NavigationInput/NavigationInput";
-import { Grid, makeStyles, Button } from "@material-ui/core";
+import { Grid, makeStyles, Button, useMediaQuery } from "@material-ui/core";
 import NavigationButtonGroup from "../NavigationButtonGroup/NavigationButtonGroup";
 import NavigationSelect from "../NavigationSelect/NavigationSelect";
 import { ArrowBack } from "@material-ui/icons";
@@ -20,6 +20,7 @@ export interface NavigationInterface {
 }
 
 export const Navigation: React.FC<NavigationInterface> = ({ home }) => {
+  const matches = useMediaQuery("(max-width:710px)");
   const classes = useStyles();
   const history = useHistory();
   const handleClick = (e: any) => {
@@ -33,10 +34,14 @@ export const Navigation: React.FC<NavigationInterface> = ({ home }) => {
           <Typography variant="h6">myNation</Typography>
           {home ? (
             <>
-              <NavigationInput />
-              <NavigationSelect region />
-              <NavigationSelect />
-              <NavigationButtonGroup />
+              <NavigationInput matches={matches} />
+              {!matches && (
+                <>
+                  <NavigationSelect region />
+                  <NavigationSelect />
+                  <NavigationButtonGroup />
+                </>
+              )}
             </>
           ) : (
             <Button onClick={handleClick} startIcon={<ArrowBack />}>

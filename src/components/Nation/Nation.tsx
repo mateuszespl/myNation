@@ -11,6 +11,8 @@ import {
   CardMedia,
   CircularProgress,
   CardContent,
+  useMediaQuery,
+  ButtonGroup,
 } from "@material-ui/core";
 import { NationInfoList } from "../NationInfoList/NationInfoList";
 import NationButton from "../NationButton/NationButton";
@@ -27,7 +29,6 @@ const useStyles = makeStyles({
     justifyContent: "center",
   },
   cardMedia: {
-    width: "600px",
     height: "200px",
   },
 });
@@ -59,29 +60,44 @@ export const Nation: React.FC<NationInterface> = ({
     nationName !== "" && setCurrentNationView(nationName);
   }, []);
   const classes = useStyles();
+  const matches = useMediaQuery("(max-width:500px)");
   return (
     <>
       {countriesDataList.length === 0 ? (
         <Redirect to="/" />
       ) : (
         <Box component="main" className={`${classes.main}`}>
-          <Grid container alignItems="center" justify="space-around">
-            <NationButton />
+          <Grid
+            direction={matches ? "column" : "row"}
+            container
+            alignItems="center"
+            justify="space-around"
+          >
+            {!matches && <NationButton />}
             {currentNationView ? (
-              <Card>
-                <CardHeader title={currentNationView.name} />
-                <CardMedia
-                  className={classes.cardMedia}
-                  image={currentNationView.flag}
-                />
-                <CardContent>
-                  <NationInfoList currentNationView={currentNationView} />
-                </CardContent>
-              </Card>
+              <Grid item xs={8}>
+                <Card>
+                  <CardHeader title={currentNationView.name} />
+                  <CardMedia
+                    className={classes.cardMedia}
+                    image={currentNationView.flag}
+                  />
+                  <CardContent>
+                    <NationInfoList currentNationView={currentNationView} />
+                  </CardContent>
+                </Card>
+              </Grid>
             ) : (
               <CircularProgress />
             )}
-            <NationButton next />
+            {matches ? (
+              <ButtonGroup>
+                <NationButton />
+                <NationButton next />
+              </ButtonGroup>
+            ) : (
+              <NationButton next />
+            )}
           </Grid>
         </Box>
       )}
