@@ -1,17 +1,15 @@
-import React, { useEffect, Suspense } from "react";
-import { Box } from "@material-ui/core";
+import React, { useEffect, Suspense, useState } from "react";
+import { Box, Snackbar } from "@material-ui/core";
 import { connect } from "react-redux";
 import { fetchData } from "../../store/actionCreators";
 import DisplayList from "../DisplayList/DisplayList";
+import { Alert } from "@material-ui/lab";
 const Nation = React.lazy(() => import("../Nation/Nation"));
 
 export interface DisplaySectionInterface {
   countriesDataList: Array<{}>;
-  skeletonDataList: Array<number>;
   fetchData: () => any;
   fetchedDataSuccessfull: boolean;
-  displayMode: string;
-  filteredNationsDataList: Array<any>;
   home?: boolean;
 }
 
@@ -19,10 +17,17 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
   countriesDataList,
   fetchData,
   home,
+  fetchedDataSuccessfull,
 }) => {
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     countriesDataList.length === 0 && fetchData();
   }, []);
+
+  useEffect(() => {
+    setOpen(true);
+  }, [fetchedDataSuccessfull]);
   return (
     <Box component="section">
       {home ? (
@@ -33,6 +38,13 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
           <Nation />
         </Suspense>
       )}
+      <Snackbar
+        autoHideDuration={4000}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <Alert severity="success">Pomyślnie pobrano dane!</Alert>
+      </Snackbar>
     </Box>
   );
 };
@@ -40,10 +52,7 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
 const mapStateToProps = (state: any) => {
   return {
     countriesDataList: state.countriesDataList,
-    skeletonDataList: state.skeletonDataList,
     fetchedDataSuccessfull: state.fetchedDataSuccessfull,
-    displayMode: state.displayMode,
-    filteredNationsDataList: state.filteredNationsDataList,
   };
 };
 
