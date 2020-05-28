@@ -16,7 +16,7 @@ export const NavigationButtonGroup: React.FC<NavigationButtonGroupInterface> = (
 }) => {
   const matches = useMediaQuery("(max-width:600px)");
   useEffect(() => {
-    setDisplayMode("grid");
+    !matches ? setDisplayMode("grid") : setDisplayMode("list");
   }, [matches]);
   return (
     <ButtonGroup variant="text" color="default" aria-label="">

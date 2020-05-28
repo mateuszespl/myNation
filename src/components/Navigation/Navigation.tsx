@@ -8,6 +8,7 @@ import NavigationButtonGroup from "../NavigationButtonGroup/NavigationButtonGrou
 import NavigationSelect from "../NavigationSelect/NavigationSelect";
 import { ArrowBack } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
+import { NavigationModalButton } from "../NavigationModalButton/NavigationModalButton";
 
 const useStyles = makeStyles({
   appBar: {
@@ -35,12 +36,14 @@ export const Navigation: React.FC<NavigationInterface> = ({ home }) => {
           {home ? (
             <>
               <NavigationInput matches={matches} />
-              {!matches && (
+              {!matches ? (
                 <>
                   <NavigationSelect region />
                   <NavigationSelect />
                   <NavigationButtonGroup />
                 </>
+              ) : (
+                <NavigationModalButton />
               )}
             </>
           ) : (

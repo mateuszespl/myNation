@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
   },
   cardMedia: {
-    height: "200px",
+    height: "300px",
   },
 });
 
@@ -73,9 +73,9 @@ export const Nation: React.FC<NationInterface> = ({
             alignItems="center"
             justify="space-around"
           >
-            {!matches && <NationButton />}
+            {!matches && <NationButton fab />}
             {currentNationView ? (
-              <Grid item xs={8}>
+              <Grid item xs={!matches ? 8 : true} spacing={2}>
                 <Card>
                   <CardHeader title={currentNationView.name} />
                   <CardMedia
@@ -96,7 +96,7 @@ export const Nation: React.FC<NationInterface> = ({
                 <NationButton next />
               </ButtonGroup>
             ) : (
-              <NationButton next />
+              <NationButton fab next />
             )}
           </Grid>
         </Box>

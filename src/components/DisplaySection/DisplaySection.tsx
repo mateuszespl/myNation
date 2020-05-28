@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { Box } from "@material-ui/core";
 import { connect } from "react-redux";
 import { fetchData } from "../../store/actionCreators";
 import DisplayList from "../DisplayList/DisplayList";
-import Nation from "../Nation/Nation";
+const Nation = React.lazy(() => import("../Nation/Nation"));
 
 export interface DisplaySectionInterface {
   countriesDataList: Array<{}>;
@@ -23,7 +23,18 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
   useEffect(() => {
     countriesDataList.length === 0 && fetchData();
   }, []);
-  return <Box component="section">{home ? <DisplayList /> : <Nation />}</Box>;
+  return (
+    <Box component="section">
+      {home ? (
+        <DisplayList />
+      ) : (
+        <Suspense fallback={"Loading..."}>
+          {" "}
+          <Nation />
+        </Suspense>
+      )}
+    </Box>
+  );
 };
 
 const mapStateToProps = (state: any) => {

@@ -23,7 +23,6 @@ export const MyNationMain: React.FC = () => {
             <DisplaySection home />
           </Box>
         </Route>
-        <Route path="/test">test router</Route>
         <Route path="/nation/:nationName">
           <Navigation />
           <DisplaySection />

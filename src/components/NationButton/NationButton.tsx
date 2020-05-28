@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Fab } from "@material-ui/core";
+import { Fab, Button } from "@material-ui/core";
 import { NavigateBefore, NavigateNext } from "@material-ui/icons";
 import { setCurrentNationView } from "./../../store/actionCreators";
 import { useHistory } from "react-router-dom";
@@ -10,9 +10,11 @@ export interface NationButtonInterface {
   setCurrentNationView: (nation: string) => any;
   nextNationView: string;
   prevNationView: string;
+  fab?: boolean;
 }
 
 export const NationButton: React.FC<NationButtonInterface> = ({
+  fab,
   next,
   setCurrentNationView,
   nextNationView,
@@ -25,13 +27,35 @@ export const NationButton: React.FC<NationButtonInterface> = ({
     history.push(next ? nextNationView : prevNationView);
   };
   return (
-    <Fab>
-      {!next ? (
-        <NavigateBefore onClick={(e) => handleClick(e)} />
+    <>
+      {fab ? (
+        <Fab>
+          {!next ? (
+            <NavigateBefore onClick={(e) => handleClick(e)} />
+          ) : (
+            <NavigateNext onClick={(e) => handleClick(e, next)} />
+          )}
+        </Fab>
       ) : (
-        <NavigateNext onClick={(e) => handleClick(e, next)} />
+        <>
+          {!next ? (
+            <Button
+              startIcon={<NavigateBefore />}
+              onClick={(e) => handleClick(e)}
+            >
+              Poprzednie
+            </Button>
+          ) : (
+            <Button
+              endIcon={<NavigateNext />}
+              onClick={(e) => handleClick(e, next)}
+            >
+              Następne
+            </Button>
+          )}
+        </>
       )}
-    </Fab>
+    </>
   );
 };
 
