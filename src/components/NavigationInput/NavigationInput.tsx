@@ -18,7 +18,7 @@ export const NavigationInput: React.FC<NavigationInputInterface> = ({
   matches,
 }) => {
   return (
-    <Grid container item alignItems="center" xs={!matches ? 4 : 7}>
+    <Grid container item alignItems="center" xs={!matches ? 4 : 5}>
       <Grid item xs>
         {/* <Autocomplete
           freeSolo
@@ -31,7 +31,7 @@ export const NavigationInput: React.FC<NavigationInputInterface> = ({
         <TextField
           // {...params}
           fullWidth
-          label="Wyszukaj państwo"
+          label={!matches ? "Wyszukaj państwo" : "Wyszukaj"}
           onChange={(e: any) => updateInputValue(e.target.value)}
           value={inputValue}
           size="small"

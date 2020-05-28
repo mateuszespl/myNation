@@ -32,7 +32,7 @@ export const Navigation: React.FC<NavigationInterface> = ({ home }) => {
     <AppBar className={`${classes.appBar}`} position="relative" color="default">
       <Toolbar>
         <Grid container alignItems="center" justify="space-around">
-          <Typography variant="h6">myNation</Typography>
+          <Typography variant="subtitle1">myNation</Typography>
           {home ? (
             <>
               <NavigationInput matches={matches} />
