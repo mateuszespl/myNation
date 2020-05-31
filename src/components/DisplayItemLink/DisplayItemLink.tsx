@@ -124,7 +124,7 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
                 justify={displayMode === "grid" ? "space-around" : "center"}
               >
                 <Typography className={`${classes.nationName}`} component="h1">
-                  {name}
+                  {name.length > 15 ? name.substring(0, 15) + "..." : name}
                 </Typography>
                 {region && <Chip label={region} />}
               </Grid>

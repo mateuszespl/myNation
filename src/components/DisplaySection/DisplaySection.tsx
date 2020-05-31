@@ -1,9 +1,9 @@
 import React, { useEffect, Suspense, useState } from "react";
-import { Box, Snackbar } from "@material-ui/core";
+import { Box, Snackbar, Grid } from "@material-ui/core";
 import { connect } from "react-redux";
 import { fetchData } from "../../store/actionCreators";
 import DisplayList from "../DisplayList/DisplayList";
-import { Alert } from "@material-ui/lab";
+import { Alert, Skeleton } from "@material-ui/lab";
 const Nation = React.lazy(() => import("../Nation/Nation"));
 
 export interface DisplaySectionInterface {
@@ -33,7 +33,13 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
       {home ? (
         <DisplayList />
       ) : (
-        <Suspense fallback={"Loading..."}>
+        <Suspense
+          fallback={
+            <Grid container alignItems="center" justify="space-around">
+              <Skeleton />
+            </Grid>
+          }
+        >
           {" "}
           <Nation />
         </Suspense>

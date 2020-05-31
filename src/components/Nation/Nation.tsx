@@ -13,6 +13,7 @@ import {
   CardContent,
   useMediaQuery,
   ButtonGroup,
+  CardActions,
 } from "@material-ui/core";
 import { NationInfoList } from "../NationInfoList/NationInfoList";
 import NationButton from "../NationButton/NationButton";
@@ -30,6 +31,12 @@ const useStyles = makeStyles({
   },
   cardMedia: {
     height: "300px",
+  },
+  cardActions: {
+    height: "100%",
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "flex-end",
   },
 });
 
@@ -70,10 +77,9 @@ export const Nation: React.FC<NationInterface> = ({
           <Grid
             direction={matches ? "column" : "row"}
             container
-            alignItems="center"
+            alignItems={!matches ? "center" : undefined}
             justify="space-around"
           >
-            {!matches && <NationButton fab />}
             {currentNationView ? (
               <Grid item xs={!matches ? 8 : true}>
                 <Card>
@@ -81,7 +87,12 @@ export const Nation: React.FC<NationInterface> = ({
                   <CardMedia
                     className={classes.cardMedia}
                     image={currentNationView.flag}
-                  />
+                  >
+                    <CardActions className={classes.cardActions}>
+                      <NationButton />
+                      <NationButton next />
+                    </CardActions>
+                  </CardMedia>
                   <CardContent>
                     <NationInfoList currentNationView={currentNationView} />
                   </CardContent>
@@ -89,14 +100,6 @@ export const Nation: React.FC<NationInterface> = ({
               </Grid>
             ) : (
               <CircularProgress />
-            )}
-            {matches ? (
-              <ButtonGroup>
-                <NationButton />
-                <NationButton next />
-              </ButtonGroup>
-            ) : (
-              <NationButton fab next />
             )}
           </Grid>
         </Box>

@@ -37,13 +37,17 @@ export const updateInputValue = (inputValue: string) => {
 export const setCurrentNationView = (currentNation: string) => {
   return (dispatch: any, getState: any) => {
     const countriesDataList = getState().countriesDataList;
-    const countriesNameList = getState().countriesNameList;
-    const currentNationView = countriesDataList.find(
-      (nation: any) => nation.name === currentNation
-    );
-    const currentIndex = countriesNameList.indexOf(currentNation);
-    const prevNationView = countriesNameList[currentIndex - 1];
-    const nextNationView = countriesNameList[currentIndex + 1];
+    let currentNationView;
+    if (typeof currentNation === "string") {
+      currentNationView = countriesDataList.find(
+        (nation: any) => nation.name === currentNation
+      );
+    } else {
+      currentNationView = currentNation;
+    }
+    const currentIndex = countriesDataList.indexOf(currentNationView);
+    const prevNationView = countriesDataList[currentIndex - 1];
+    const nextNationView = countriesDataList[currentIndex + 1];
 
     dispatch({
       type: actionTypes.CURRENT_NATION_VIEW_UPDATE,
