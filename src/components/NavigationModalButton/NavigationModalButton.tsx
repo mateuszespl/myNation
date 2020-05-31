@@ -31,18 +31,16 @@ export const NavigationModalButton = () => {
       </Button>
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogActions>
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-            spacing={2}
-          >
+          <Grid container direction="column" spacing={2}>
             <Grid item>
-              <NavigationSelect />
+              <Box p={2}>
+                <NavigationSelect mobile />
+              </Box>
             </Grid>
             <Grid item>
-              <NavigationSelect region />
+              <Box p={2}>
+                <NavigationSelect mobile region />
+              </Box>
             </Grid>
           </Grid>
         </DialogActions>

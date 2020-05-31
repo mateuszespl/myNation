@@ -75,7 +75,7 @@ export const Nation: React.FC<NationInterface> = ({
           >
             {!matches && <NationButton fab />}
             {currentNationView ? (
-              <Grid item xs={!matches ? 8 : true} spacing={2}>
+              <Grid item xs={!matches ? 8 : true}>
                 <Card>
                   <CardHeader title={currentNationView.name} />
                   <CardMedia

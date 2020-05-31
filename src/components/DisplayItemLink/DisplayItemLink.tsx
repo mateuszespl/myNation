@@ -28,9 +28,9 @@ interface propsInterface {
 const useStyles = makeStyles({
   box: (props: propsInterface) => ({
     position: "relative",
-    height: props.displayMode === "list" ? "160px" : "200px",
+    height: props.displayMode === "list" ? "160px" : "250px",
     width: props.displayMode === "list" ? "85vw" : "300px",
-    margin: "20px",
+    margin: "15px 20px",
   }),
   card: (props: propsInterface) => ({
     display: props.displayMode === "list" ? "flex" : "",

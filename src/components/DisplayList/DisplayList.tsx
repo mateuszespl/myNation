@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Grid, makeStyles } from "@material-ui/core";
+import { Grid, makeStyles, useMediaQuery } from "@material-ui/core";
 import { DisplayItemSkeleton } from "../DisplayItemSkeleton/DisplayItemSkeleton";
 import InfiniteScroll from "react-infinite-scroller";
 import { connect } from "react-redux";
@@ -33,6 +33,7 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
   infiniteScrollNationsList,
 }) => {
   const classes = useStyles();
+  const matches = useMediaQuery("(max-width:744px)");
   return (
     <Suspense
       fallback={
@@ -42,7 +43,6 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
           alignItems="center"
           justify="space-around"
           direction={displayMode === "list" ? "column" : "row"}
-          spacing={4}
         >
           {skeletonDataList.map((key) => (
             <DisplayItemSkeleton key={key} />
@@ -64,10 +64,9 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
           <Grid
             className={`${classes.grid}`}
             container
-            alignItems="center"
-            justify="space-around"
+            alignItems={displayMode === "list" ? "center" : undefined}
+            justify="center"
             direction={displayMode === "list" ? "column" : "row"}
-            spacing={4}
           >
             {(filteredNationsDataList.length > 0
               ? filteredNationsDataList
