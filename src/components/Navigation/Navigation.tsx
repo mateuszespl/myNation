@@ -3,12 +3,18 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import NavigationInput from "../NavigationInput/NavigationInput";
-import { Grid, makeStyles, Button, useMediaQuery } from "@material-ui/core";
+import {
+  Grid,
+  makeStyles,
+  Button,
+  useMediaQuery,
+  IconButton,
+} from "@material-ui/core";
 import NavigationButtonGroup from "../NavigationButtonGroup/NavigationButtonGroup";
 import NavigationSelect from "../NavigationSelect/NavigationSelect";
 import { ArrowBack } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
-import { NavigationModalButton } from "../NavigationModalButton/NavigationModalButton";
+import NavigationModalButton from "../NavigationModalButton/NavigationModalButton";
 
 const useStyles = makeStyles({
   appBar: {
@@ -22,6 +28,7 @@ export interface NavigationInterface {
 
 export const Navigation: React.FC<NavigationInterface> = ({ home }) => {
   const matches = useMediaQuery("(max-width:710px)");
+  const matches1 = useMediaQuery("(max-width:500px)");
   const classes = useStyles();
   const history = useHistory();
   const handleClick = (e: any) => {
@@ -33,9 +40,9 @@ export const Navigation: React.FC<NavigationInterface> = ({ home }) => {
       <Toolbar>
         <Grid container alignItems="center" justify="space-around">
           <Typography variant="subtitle1">myNation</Typography>
+          <NavigationInput matches={matches} home={home} />
           {home ? (
             <>
-              <NavigationInput matches={matches} />
               {!matches ? (
                 <>
                   <NavigationSelect region />
@@ -43,13 +50,17 @@ export const Navigation: React.FC<NavigationInterface> = ({ home }) => {
                   <NavigationButtonGroup />
                 </>
               ) : (
-                <NavigationModalButton />
+                <NavigationModalButton matches={matches1} />
               )}
             </>
-          ) : (
+          ) : !matches1 ? (
             <Button onClick={handleClick} startIcon={<ArrowBack />}>
               Powrót
             </Button>
+          ) : (
+            <IconButton onClick={handleClick}>
+              <ArrowBack />
+            </IconButton>
           )}
         </Grid>
       </Toolbar>

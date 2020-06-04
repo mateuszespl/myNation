@@ -2,9 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import { List, ListItem, Button, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import {
+  updateInputValue,
+  setCurrentNationView,
+} from "../../store/actionCreators";
 
 export interface AutocompleteListInterface {
   autocompleteList: Array<{}>;
+  updateInputValue: (inputValue: string) => any;
+  setCurrentNationView: (currentNation: string) => any;
+  home?: boolean;
 }
 
 const useStyles = makeStyles({
@@ -28,6 +35,9 @@ const useStyles = makeStyles({
 
 export const AutocompleteList: React.FC<AutocompleteListInterface> = ({
   autocompleteList,
+  updateInputValue,
+  setCurrentNationView,
+  home,
 }) => {
   const classes = useStyles();
   return (
@@ -38,13 +48,19 @@ export const AutocompleteList: React.FC<AutocompleteListInterface> = ({
             variant="contained"
             component={Link}
             to={`/nation/${nation.name}`}
+            onClick={() => {
+              updateInputValue("");
+              !home && setCurrentNationView(nation.name);
+            }}
           >
             <img
               className={classes.img}
               src={nation.flag}
               alt={`${nation.name} link flag`}
             />
-            {nation.name}
+            {nation.name.length > 20
+              ? nation.name.slice(0, 25) + "..."
+              : nation.name}
           </Button>
         </ListItem>
       ))}
@@ -59,7 +75,12 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => {
-  return {};
+  return {
+    updateInputValue: (inputValue: string) =>
+      dispatch(updateInputValue(inputValue)),
+    setCurrentNationView: (currentNation: string) =>
+      dispatch(setCurrentNationView(currentNation)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AutocompleteList);

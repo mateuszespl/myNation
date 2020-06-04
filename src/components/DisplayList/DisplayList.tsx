@@ -3,7 +3,10 @@ import { Grid, makeStyles, useMediaQuery } from "@material-ui/core";
 import { DisplayItemSkeleton } from "../DisplayItemSkeleton/DisplayItemSkeleton";
 import InfiniteScroll from "react-infinite-scroller";
 import { connect } from "react-redux";
-import { updateInfiniteScroll } from "../../store/actionCreators";
+import {
+  updateInfiniteScroll,
+  updateInputValue,
+} from "../../store/actionCreators";
 const DisplayItemLink = React.lazy(() =>
   import("../DisplayItemLink/DisplayItemLink")
 );
@@ -21,6 +24,7 @@ export interface DisplayListInterface {
   fetchedDataSuccessfull: boolean;
   displayMode: string;
   updateInfiniteScroll: () => any;
+  updateInputValue: (inputValue: string) => any;
   infiniteScrollNationsList: Array<any>;
   infiniteScrollHasMore: boolean;
 }
@@ -31,11 +35,11 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
   displayMode,
   filteredNationsDataList,
   updateInfiniteScroll,
+  updateInputValue,
   infiniteScrollHasMore,
   infiniteScrollNationsList,
 }) => {
   const classes = useStyles();
-  const matches = useMediaQuery("(max-width:744px)");
   return (
     <Suspense
       fallback={
@@ -75,6 +79,7 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
               : infiniteScrollNationsList
             ).map((country: any, id: number) => (
               <DisplayItemLink
+                handleClick={updateInputValue("")}
                 displayMode={displayMode}
                 key={id}
                 country={country}
@@ -101,6 +106,8 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     updateInfiniteScroll: () => dispatch(updateInfiniteScroll()),
+    updateInputValue: (inputValue: string) =>
+      dispatch(updateInputValue(inputValue)),
   };
 };
 

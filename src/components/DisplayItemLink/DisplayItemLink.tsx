@@ -64,11 +64,13 @@ export interface DisplayItemLinkInterface {
     alpha3Code: string;
   };
   displayMode: string;
+  handleClick: () => any;
 }
 
 export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
   country,
   displayMode,
+  handleClick,
 }) => {
   const {
     name,
@@ -91,7 +93,7 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
     <Grid item>
       <Box className={`${classes.box}`}>
         <Card className={`${classes.card}`}>
-          <Link to={`/nation/${name}`}>
+          <Link onClick={handleClick} to={`/nation/${name}`}>
             <CardActionArea>
               <CardMedia
                 className={`${classes.cardMedia}`}

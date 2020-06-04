@@ -10,6 +10,7 @@ export interface NavigationInputInterface {
   countriesNameList: string[];
   matches: boolean;
   autocompleteList: {}[];
+  home?: boolean;
 }
 
 export const NavigationInput: React.FC<NavigationInputInterface> = ({
@@ -17,9 +18,10 @@ export const NavigationInput: React.FC<NavigationInputInterface> = ({
   updateInputValue,
   matches,
   autocompleteList,
+  home,
 }) => {
   return (
-    <Grid container item alignItems="center" xs={!matches ? 4 : 5}>
+    <Grid container item alignItems="center" xs={!matches ? 4 : 6}>
       <Grid item xs>
         <Box position="relative">
           <TextField
@@ -30,7 +32,7 @@ export const NavigationInput: React.FC<NavigationInputInterface> = ({
             size="small"
             variant="outlined"
           />
-          {autocompleteList.length !== 0 && <AutocompleteList />}
+          {autocompleteList.length !== 0 && <AutocompleteList home={home} />}
         </Box>
       </Grid>
     </Grid>

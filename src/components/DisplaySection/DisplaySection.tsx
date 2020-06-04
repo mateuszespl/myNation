@@ -21,6 +21,8 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
 }) => {
   const [open, setOpen] = useState(false);
 
+  // DO ZMIANY REDUX
+
   useEffect(() => {
     countriesDataList.length === 0 && fetchData();
   }, []);
@@ -29,7 +31,7 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
     setOpen(true);
   }, [fetchedDataSuccessfull]);
   return (
-    <Box marginTop={8} component="section">
+    <Box marginTop="56px" component="section">
       {home ? (
         <DisplayList />
       ) : (
@@ -40,7 +42,6 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
             </Grid>
           }
         >
-          {" "}
           <Nation />
         </Suspense>
       )}
