@@ -29,7 +29,7 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
     setOpen(true);
   }, [fetchedDataSuccessfull]);
   return (
-    <Box component="section">
+    <Box marginTop={8} component="section">
       {home ? (
         <DisplayList />
       ) : (

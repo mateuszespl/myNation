@@ -22,6 +22,7 @@ export interface DisplayListInterface {
   displayMode: string;
   updateInfiniteScroll: () => any;
   infiniteScrollNationsList: Array<any>;
+  infiniteScrollHasMore: boolean;
 }
 
 export const DisplayList: React.FC<DisplayListInterface> = ({
@@ -30,6 +31,7 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
   displayMode,
   filteredNationsDataList,
   updateInfiniteScroll,
+  infiniteScrollHasMore,
   infiniteScrollNationsList,
 }) => {
   const classes = useStyles();
@@ -54,7 +56,7 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
         <InfiniteScroll
           pageStart={0}
           loadMore={updateInfiniteScroll}
-          hasMore={true || false}
+          hasMore={infiniteScrollHasMore}
           loader={
             <Grid container alignItems="center" justify="center" spacing={4}>
               <DisplayItemSkeleton />
@@ -92,6 +94,7 @@ const mapStateToProps = (state: any) => {
     skeletonDataList: state.skeletonDataList,
     fetchedDataSuccessfull: state.fetchedDataSuccessfull,
     displayMode: state.displayMode,
+    infiniteScrollHasMore: state.infiniteScrollHasMore,
   };
 };
 

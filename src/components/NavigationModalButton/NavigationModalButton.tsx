@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Sort } from "@material-ui/icons";
 import {
   Button,
-  Modal,
   Grid,
   makeStyles,
   Box,
@@ -27,7 +26,7 @@ export const NavigationModalButton = () => {
   return (
     <>
       <Button endIcon={<Sort />} onClick={() => setOpen(!open)}>
-        Filtry
+        Opcje
       </Button>
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogActions>

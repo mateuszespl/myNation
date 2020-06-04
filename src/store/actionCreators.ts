@@ -18,18 +18,18 @@ export const fetchData = () => {
 export const updateInputValue = (inputValue: string) => {
   return (dispatch: any, getState: any) => {
     const countriesDataList = getState().countriesDataList;
-    const filteredNationsDataList =
-      inputValue.length > 2
-        ? countriesDataList.filter((nation: any) =>
-            nation.name.toLowerCase().includes(inputValue.toLowerCase())
-          )
+    const autocompleteList =
+      inputValue.length > 0
+        ? countriesDataList
+            .filter((nation: any) =>
+              nation.name.toLowerCase().includes(inputValue.toLowerCase())
+            )
+            .slice(0, 10)
         : [];
     dispatch({
       type: actionTypes.INPUT_VALUE_UPDATE,
       inputValue: inputValue,
-      filteredNationsDataList: filteredNationsDataList
-        ? filteredNationsDataList
-        : [],
+      autocompleteList: autocompleteList,
     });
   };
 };
@@ -74,6 +74,7 @@ export const updateSelectValue = (
     const filteredNationsDataListRedux = getState().filteredNationsDataList;
     const infiniteScrollNationsList = getState().infiniteScrollNationsList;
     const infiniteScrollNationsCount = getState().infiniteScrollNationsCount;
+    const infiniteScrollHasMoreRedux = getState().infiniteScrollHasMore;
 
     if (selectRegionValue !== undefined && selectSortValue === undefined) {
       let filteredNationsDataList;
@@ -97,6 +98,10 @@ export const updateSelectValue = (
             ? filteredNationsDataList
             : [],
         infiniteScrollNationsList: infiniteScrollNationsList,
+        infiniteScrollHasMore:
+          selectRegionValue === "All" && infiniteScrollNationsList.length < 249
+            ? true
+            : false,
       });
     } else {
       let sortedFilteredNationsDataList;
@@ -169,6 +174,7 @@ export const updateSelectValue = (
                 0,
                 infiniteScrollNationsCount
               ),
+        infiniteScrollHasMore: infiniteScrollHasMoreRedux,
       });
     }
   };
@@ -194,6 +200,7 @@ export const updateInfiniteScroll = () => {
       infiniteScrollNationsList: updatedInfiniteScrollNationsList,
       infiniteScrollPage: nextInfiniteScrollPage,
       infiniteScrollNationsCount: updatedInfiniteScrollNationsCount,
+      infiniteScrollHasMore: nextInfiniteScrollPage === 13 ? false : true,
     });
   };
 };

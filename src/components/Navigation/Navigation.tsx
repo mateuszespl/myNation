@@ -29,7 +29,7 @@ export const Navigation: React.FC<NavigationInterface> = ({ home }) => {
     history.push("/");
   };
   return (
-    <AppBar className={`${classes.appBar}`} position="relative" color="default">
+    <AppBar className={`${classes.appBar}`} color="default">
       <Toolbar>
         <Grid container alignItems="center" justify="space-around">
           <Typography variant="subtitle1">myNation</Typography>

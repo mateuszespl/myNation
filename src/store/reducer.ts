@@ -29,7 +29,9 @@ const initialState = {
   infiniteScrollNationsList: [],
   infiniteScrollPage: 1,
   infiniteScrollNationsCount: 20,
+  infiniteScrollHasMore: true,
   fetchedDataSuccessfull: false,
+  autocompleteList: [],
   inputValue: "",
   currentNationView: {},
   nextNationView: "",
@@ -47,6 +49,7 @@ export const reducer = (state = initialState, action: any) => {
         infiniteScrollPage: action.infiniteScrollPage,
         infiniteScrollNationsList: action.infiniteScrollNationsList,
         infiniteScrollNationsCount: action.infiniteScrollNationsCount,
+        infiniteScrollHasMore: action.infiniteScrollHasMore,
       };
     case actionTypes.CURRENT_NATION_VIEW_UPDATE:
       return {
@@ -67,7 +70,7 @@ export const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         inputValue: action.inputValue,
-        filteredNationsDataList: action.filteredNationsDataList,
+        autocompleteList: action.autocompleteList,
       };
     case actionTypes.DISPLAY_MODE_UPDATE:
       return {
@@ -81,6 +84,7 @@ export const reducer = (state = initialState, action: any) => {
         selectSortValue: action.selectSortValue,
         filteredNationsDataList: action.filteredNationsDataList,
         infiniteScrollNationsList: action.infiniteScrollNationsList,
+        infiniteScrollHasMore: action.infiniteScrollHasMore,
       };
     default:
       return {

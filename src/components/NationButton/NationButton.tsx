@@ -1,14 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  Fab,
-  Button,
-  Chip,
-  Avatar,
-  makeStyles,
-  Grid,
-  Box,
-} from "@material-ui/core";
+import { Fab, Chip, Avatar, Grid } from "@material-ui/core";
 import { NavigateBefore, NavigateNext } from "@material-ui/icons";
 import { setCurrentNationView } from "./../../store/actionCreators";
 import { useHistory } from "react-router-dom";
@@ -41,70 +33,65 @@ export const NationButton: React.FC<NationButtonInterface> = ({
   return (
     <>
       {!next ? (
-        <Fab
-          variant="extended"
-          disabled={!prevNationView}
-          onClick={(e) => handleClick(e)}
-        >
-          <Box p={1}>
-            <Grid container direction="column">
-              <Grid item container justify="center" alignItems="center">
-                <NavigateBefore />
-                Poprzedni
-              </Grid>
-              {prevNationView && (
-                <Grid item>
-                  <Chip
-                    label={
-                      prevNationView.name.length > 15
-                        ? prevNationView.name.substring(0, 15) + "..."
-                        : prevNationView.name
-                    }
-                    avatar={
-                      <Avatar
-                        alt={prevNationView.name + " flag"}
-                        src={prevNationView.flag}
-                      />
-                    }
+        <Grid container direction="column" justify="center" alignItems="center">
+          <Grid item>
+            <Fab
+              variant="extended"
+              disabled={!prevNationView}
+              onClick={(e) => handleClick(e)}
+            >
+              <NavigateBefore />
+              Poprzedni
+            </Fab>
+          </Grid>
+          {prevNationView && (
+            <Grid item>
+              <Chip
+                label={
+                  prevNationView.name.length > 10
+                    ? prevNationView.name.substring(0, 10) + "..."
+                    : prevNationView.name
+                }
+                avatar={
+                  <Avatar
+                    alt={prevNationView.name + " flag"}
+                    src={prevNationView.flag}
                   />
-                </Grid>
-              )}
+                }
+              />
             </Grid>
-          </Box>
-        </Fab>
+          )}
+        </Grid>
       ) : (
-        <Fab
-          variant="extended"
-          disabled={!nextNationView}
-          onClick={(e) => handleClick(e, next)}
-        >
-          <Box p={1}>
-            <Grid container direction="column">
-              <Grid item container justify="center" alignItems="center">
-                Następny
-                <NavigateNext />
-              </Grid>
-              {nextNationView && (
-                <Grid item>
-                  {" "}
-                  <Chip
-                    label={
-                      nextNationView.name.length > 15
-                        ? nextNationView.name.substring(0, 15) + "..."
-                        : nextNationView.name
-                    }
-                    avatar={
-                      <Avatar
-                        alt={nextNationView.name + " flag"}
-                        src={nextNationView.flag}
-                      />
-                    }
+        <Grid container direction="column" justify="center" alignItems="center">
+          <Grid item>
+            <Fab
+              variant="extended"
+              disabled={!nextNationView}
+              onClick={(e) => handleClick(e, next)}
+            >
+              Następny
+              <NavigateNext />
+            </Fab>
+          </Grid>
+          {nextNationView && (
+            <Grid item>
+              <Chip
+                label={
+                  nextNationView.name.length > 10
+                    ? nextNationView.name.substring(0, 10) + "..."
+                    : nextNationView.name
+                }
+                avatar={
+                  <Avatar
+                    alt={nextNationView.name + " flag"}
+                    src={nextNationView.flag}
                   />
-                </Grid>
-              )}
+                }
+              />
             </Grid>
-          </Box>
-        </Fab>
+          )}
+        </Grid>
       )}
     </>
   );

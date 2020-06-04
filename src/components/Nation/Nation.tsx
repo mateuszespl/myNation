@@ -12,7 +12,6 @@ import {
   CircularProgress,
   CardContent,
   useMediaQuery,
-  ButtonGroup,
   CardActions,
 } from "@material-ui/core";
 import { NationInfoList } from "../NationInfoList/NationInfoList";
@@ -33,10 +32,10 @@ const useStyles = makeStyles({
     height: "300px",
   },
   cardActions: {
-    height: "100%",
+    margin: "10px 0",
     display: "flex",
     justifyContent: "space-around",
-    alignItems: "flex-end",
+    background: "333",
   },
 });
 
@@ -75,11 +74,17 @@ export const Nation: React.FC<NationInterface> = ({
       ) : (
         <Box component="main" className={`${classes.main}`}>
           <Grid
-            direction={matches ? "column" : "row"}
             container
-            alignItems={!matches ? "center" : undefined}
+            direction="row"
+            alignItems="center"
             justify="space-around"
           >
+            {!matches && (
+              <Grid item>
+                {" "}
+                <NationButton />{" "}
+              </Grid>
+            )}
             {currentNationView ? (
               <Grid item xs={!matches ? 8 : true}>
                 <Card>
@@ -87,12 +92,13 @@ export const Nation: React.FC<NationInterface> = ({
                   <CardMedia
                     className={classes.cardMedia}
                     image={currentNationView.flag}
-                  >
+                  ></CardMedia>
+                  {matches && (
                     <CardActions className={classes.cardActions}>
                       <NationButton />
                       <NationButton next />
                     </CardActions>
-                  </CardMedia>
+                  )}
                   <CardContent>
                     <NationInfoList currentNationView={currentNationView} />
                   </CardContent>
@@ -100,6 +106,11 @@ export const Nation: React.FC<NationInterface> = ({
               </Grid>
             ) : (
               <CircularProgress />
+            )}
+            {!matches && (
+              <Grid item>
+                <NationButton next />
+              </Grid>
             )}
           </Grid>
         </Box>
