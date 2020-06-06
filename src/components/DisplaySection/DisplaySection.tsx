@@ -19,7 +19,7 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
   home,
   fetchedDataSuccessfull,
 }) => {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   // DO ZMIANY REDUX
 
@@ -27,9 +27,9 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
     countriesDataList.length === 0 && fetchData();
   }, []);
 
-  useEffect(() => {
-    setOpen(true);
-  }, [fetchedDataSuccessfull]);
+  // useEffect(() => {
+  //   setOpen(true);
+  // }, [fetchedDataSuccessfull]);
   return (
     <Box marginTop="56px" component="section">
       {home ? (
@@ -45,13 +45,13 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
           <Nation />
         </Suspense>
       )}
-      <Snackbar
+      {/* <Snackbar
         autoHideDuration={4000}
         open={open}
         onClose={() => setOpen(false)}
       >
         <Alert severity="success">Pomyślnie pobrano dane!</Alert>
-      </Snackbar>
+      </Snackbar> */}
     </Box>
   );
 };
