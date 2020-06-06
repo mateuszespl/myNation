@@ -19,7 +19,7 @@ export const NavigationButtonGroup: React.FC<NavigationButtonGroupInterface> = (
     !matches ? setDisplayMode("grid") : setDisplayMode("list");
   }, [matches]);
   return (
-    <ButtonGroup variant="text" color="default" aria-label="">
+    <ButtonGroup variant="text" color="default" aria-label="display-buttons">
       <IconButton
         disabled={displayMode === "grid"}
         value="grid"

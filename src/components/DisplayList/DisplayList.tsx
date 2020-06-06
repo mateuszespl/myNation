@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Grid, makeStyles, useMediaQuery } from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import { DisplayItemSkeleton } from "../DisplayItemSkeleton/DisplayItemSkeleton";
 import InfiniteScroll from "react-infinite-scroller";
 import { connect } from "react-redux";
@@ -13,7 +13,6 @@ const DisplayItemLink = React.lazy(() =>
 
 const useStyles = makeStyles({
   grid: {
-    margin: "20px 0",
     minHeight: "calc(100vh - 64px)",
   },
 });
@@ -48,10 +47,10 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
           container
           alignItems="center"
           justify="space-around"
-          direction={displayMode === "list" ? "column" : "row"}
+          direction={displayMode === "grid" ? "row" : "column"}
         >
           {skeletonDataList.map((key) => (
-            <DisplayItemSkeleton key={key} />
+            <DisplayItemSkeleton displayMode={displayMode} key={key} />
           ))}
         </Grid>
       }
@@ -62,8 +61,17 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
           loadMore={updateInfiniteScroll}
           hasMore={infiniteScrollHasMore}
           loader={
-            <Grid container alignItems="center" justify="center" spacing={4}>
-              <DisplayItemSkeleton />
+            <Grid
+              className={`${classes.grid}`}
+              container
+              alignItems={displayMode === "grid" ? "flex-start" : "center"}
+              justify={displayMode === "grid" ? "center" : "flex-start"}
+              direction={displayMode === "grid" ? "row" : "column"}
+            >
+              <DisplayItemSkeleton displayMode={displayMode} />
+              <DisplayItemSkeleton displayMode={displayMode} />
+              <DisplayItemSkeleton displayMode={displayMode} />
+              <DisplayItemSkeleton displayMode={displayMode} />
             </Grid>
           }
         >
@@ -79,7 +87,7 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
               : infiniteScrollNationsList
             ).map((country: any, id: number) => (
               <DisplayItemLink
-                handleClick={updateInputValue("")}
+                handleClick={() => updateInputValue("")}
                 displayMode={displayMode}
                 key={id}
                 country={country}

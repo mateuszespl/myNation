@@ -32,11 +32,10 @@ const useStyles = makeStyles({
     justifyContent: "center",
   },
   button: (props: propsInterface) => ({
-    margin: "20px",
     background:
       props.selectSortValue === "None" && props.selectRegionValue === "All"
-        ? "red"
-        : "green",
+        ? "rgb(244, 68, 54)"
+        : "rgb(76, 175, 80)",
   }),
 });
 
@@ -75,23 +74,29 @@ export const NavigationModalButton: React.FC<NavigationModalButtonInterface> = (
                 <NavigationSelect mobile region />
               </Box>
             </Grid>
+            <Grid justify="center" container item>
+              {" "}
+              <Box margin={1}>
+                <Button
+                  className={classes.button}
+                  endIcon={
+                    selectSortValue === "None" &&
+                    selectRegionValue === "All" ? (
+                      <Close />
+                    ) : (
+                      <Done />
+                    )
+                  }
+                  onClick={() => setOpen(false)}
+                >
+                  {selectSortValue === "None" && selectRegionValue === "All"
+                    ? "Zamknij okno"
+                    : "Zastosuj opcje"}
+                </Button>
+              </Box>
+            </Grid>
           </Grid>
         </DialogActions>
-        <Button
-          className={classes.button}
-          endIcon={
-            selectSortValue === "None" && selectRegionValue === "All" ? (
-              <Close />
-            ) : (
-              <Done />
-            )
-          }
-          onClick={() => setOpen(false)}
-        >
-          {selectSortValue === "None" && selectRegionValue === "All"
-            ? "Zamknij okno"
-            : "Zastosuj opcje"}
-        </Button>
       </Dialog>
     </>
   );
