@@ -66,8 +66,7 @@ export const Nation: React.FC<NationInterface> = ({
     nationName !== "" && setCurrentNationView(nationName);
   }, []);
   const classes = useStyles();
-  const matches = useMediaQuery("(max-width:400px)");
-  const matches1 = useMediaQuery("(max-width:970px)");
+  const matches = useMediaQuery("(max-width:970px)");
   return (
     <>
       {countriesDataList.length === 0 ? (
@@ -80,7 +79,7 @@ export const Nation: React.FC<NationInterface> = ({
             alignItems="center"
             justify="space-around"
           >
-            {!matches1 && (
+            {!matches && (
               <Grid item>
                 <NationButton />
               </Grid>
@@ -93,7 +92,7 @@ export const Nation: React.FC<NationInterface> = ({
                     className={classes.cardMedia}
                     image={currentNationView.flag}
                   ></CardMedia>
-                  {matches1 && (
+                  {matches && (
                     <CardActions className={classes.cardActions}>
                       <NationButton />
                       <NationButton next />
@@ -107,7 +106,7 @@ export const Nation: React.FC<NationInterface> = ({
             ) : (
               <CircularProgress />
             )}
-            {!matches1 && (
+            {!matches && (
               <Grid item>
                 <NationButton next />
               </Grid>

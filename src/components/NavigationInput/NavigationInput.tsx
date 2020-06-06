@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Grid, Box } from "@material-ui/core";
+import { TextField, Grid, Box, useMediaQuery } from "@material-ui/core";
 import { connect } from "react-redux";
 import { updateInputValue } from "../../store/actionCreators";
 import AutocompleteList from "../AutocompleteList/AutocompleteList";
@@ -23,7 +23,7 @@ export const NavigationInput: React.FC<NavigationInputInterface> = ({
   return (
     <Grid container item alignItems="center" xs={!matches ? 4 : 6}>
       <Grid item xs>
-        <Box position="relative">
+        <Box position={!matches && "relative"}>
           <TextField
             fullWidth
             label={!matches ? "Wyszukaj państwo" : "Wyszukaj"}

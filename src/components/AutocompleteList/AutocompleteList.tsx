@@ -1,6 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { List, ListItem, Button, makeStyles } from "@material-ui/core";
+import {
+  List,
+  ListItem,
+  Button,
+  makeStyles,
+  useMediaQuery,
+} from "@material-ui/core";
 import { Link } from "react-router-dom";
 import {
   updateInputValue,
@@ -14,18 +20,22 @@ export interface AutocompleteListInterface {
   home?: boolean;
 }
 
+interface propsInterface {
+  matches?: boolean;
+}
+
 const useStyles = makeStyles({
-  list: {
+  list: (props: propsInterface) => ({
     position: "absolute",
     top: "0",
     left: "0",
     display: "flex",
     flexDirection: "column",
-    margin: "40px 0 0 0",
+    margin: props.matches ? "56px 0 0 0" : "40px 0 0 0",
     background: "rgb(40, 40, 40)",
     width: "100%",
     borderRadius: "4px",
-  },
+  }),
   img: {
     width: "20px",
     height: "13px",
@@ -39,7 +49,9 @@ export const AutocompleteList: React.FC<AutocompleteListInterface> = ({
   setCurrentNationView,
   home,
 }) => {
-  const classes = useStyles();
+  const matches = useMediaQuery("(max-width:710px)");
+  const props = { matches: matches };
+  const classes = useStyles(props);
   return (
     <List className={classes.list}>
       {autocompleteList.map((nation: any) => (
@@ -58,7 +70,7 @@ export const AutocompleteList: React.FC<AutocompleteListInterface> = ({
               src={nation.flag}
               alt={`${nation.name} link flag`}
             />
-            {nation.name.length > 20
+            {nation.name.length > 25
               ? nation.name.slice(0, 25) + "..."
               : nation.name}
           </Button>
