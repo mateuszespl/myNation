@@ -9,7 +9,8 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@material-ui/core";
-import { updateSelectValue } from "../../store/actionCreators";
+
+import { updateSelectValue } from "store/actionCreators";
 
 export interface NavigationSelectInterface {
   selectRegionValue: string;

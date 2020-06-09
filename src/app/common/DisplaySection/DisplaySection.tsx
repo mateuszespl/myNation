@@ -1,9 +1,10 @@
-import React, { useEffect, Suspense, useState } from "react";
-import { Box, Snackbar, Grid } from "@material-ui/core";
+import React, { useEffect, Suspense } from "react";
+import { Box, Grid } from "@material-ui/core";
 import { connect } from "react-redux";
-import { fetchData } from "../../store/actionCreators";
 import DisplayList from "../DisplayList/DisplayList";
-import { Alert, Skeleton } from "@material-ui/lab";
+import { Skeleton } from "@material-ui/lab";
+
+import { fetchData } from "store/actionCreators";
 const Nation = React.lazy(() => import("../Nation/Nation"));
 
 export interface DisplaySectionInterface {
@@ -17,19 +18,10 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
   countriesDataList,
   fetchData,
   home,
-  fetchedDataSuccessfull,
 }) => {
-  // const [open, setOpen] = useState(false);
-
-  // DO ZMIANY REDUX
-
   useEffect(() => {
     countriesDataList.length === 0 && fetchData();
-  }, []);
-
-  // useEffect(() => {
-  //   setOpen(true);
-  // }, [fetchedDataSuccessfull]);
+  }, [countriesDataList.length]);
   return (
     <Box marginTop="56px" component="section">
       {home ? (
@@ -45,13 +37,6 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
           <Nation />
         </Suspense>
       )}
-      {/* <Snackbar
-        autoHideDuration={4000}
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        <Alert severity="success">Pomyślnie pobrano dane!</Alert>
-      </Snackbar> */}
     </Box>
   );
 };

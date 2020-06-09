@@ -1,8 +1,9 @@
 import React from "react";
-import { Navigation } from "./Navigation/Navigation";
-import DisplaySection from "./DisplaySection/DisplaySection";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Box, makeStyles } from "@material-ui/core";
+
+import { Navigation } from "../common/Navigation/Navigation";
+import DisplaySection from "../common/DisplaySection/DisplaySection";
 
 const useStyles = makeStyles({
   main: {

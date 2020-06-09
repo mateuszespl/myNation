@@ -3,10 +3,8 @@ import { Grid, makeStyles } from "@material-ui/core";
 import { DisplayItemSkeleton } from "../DisplayItemSkeleton/DisplayItemSkeleton";
 import InfiniteScroll from "react-infinite-scroller";
 import { connect } from "react-redux";
-import {
-  updateInfiniteScroll,
-  updateInputValue,
-} from "../../store/actionCreators";
+
+import { updateInfiniteScroll, updateInputValue } from "store/actionCreators";
 const DisplayItemLink = React.lazy(() =>
   import("../DisplayItemLink/DisplayItemLink")
 );

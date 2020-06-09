@@ -8,10 +8,8 @@ import {
   useMediaQuery,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import {
-  updateInputValue,
-  setCurrentNationView,
-} from "../../store/actionCreators";
+
+import { updateInputValue, setCurrentNationView } from "store/actionCreators";
 
 export interface AutocompleteListInterface {
   autocompleteList: Array<{}>;

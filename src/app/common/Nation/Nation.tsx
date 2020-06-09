@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter, Redirect } from "react-router-dom";
-import { setCurrentNationView } from "../../store/actionCreators";
 import {
   Grid,
   Box,
@@ -14,8 +13,10 @@ import {
   useMediaQuery,
   CardActions,
 } from "@material-ui/core";
+
 import { NationInfoList } from "../NationInfoList/NationInfoList";
 import NationButton from "../NationButton/NationButton";
+import { setCurrentNationView } from "store/actionCreators";
 
 const useStyles = makeStyles({
   main: {

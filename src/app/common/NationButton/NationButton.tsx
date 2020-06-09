@@ -2,8 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { Fab, Chip, Avatar, Grid } from "@material-ui/core";
 import { NavigateBefore, NavigateNext } from "@material-ui/icons";
-import { setCurrentNationView } from "./../../store/actionCreators";
 import { useHistory } from "react-router-dom";
+
+import { setCurrentNationView } from "store/actionCreators";
 
 export interface NationButtonInterface {
   next?: boolean;

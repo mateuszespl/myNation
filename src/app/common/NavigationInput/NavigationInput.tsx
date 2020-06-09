@@ -1,7 +1,8 @@
 import React from "react";
-import { TextField, Grid, Box, useMediaQuery } from "@material-ui/core";
+import { TextField, Grid, Box } from "@material-ui/core";
 import { connect } from "react-redux";
-import { updateInputValue } from "../../store/actionCreators";
+
+import { updateInputValue } from "store/actionCreators";
 import AutocompleteList from "../AutocompleteList/AutocompleteList";
 
 export interface NavigationInputInterface {

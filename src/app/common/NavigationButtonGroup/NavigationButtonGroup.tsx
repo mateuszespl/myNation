@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { IconButton, useMediaQuery } from "@material-ui/core";
 import { ViewModule, ViewHeadline } from "@material-ui/icons";
-import { setDisplayMode } from "../../store/actionCreators";
+
+import { setDisplayMode } from "store/actionCreators";
 
 export interface NavigationButtonGroupInterface {
   setDisplayMode: (displayMode: string) => any;

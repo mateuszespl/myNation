@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import * as serviceWorker from "./serviceWorker";
-import { theme } from "./theme/theme";
 import { Provider } from "react-redux";
-import { store } from "./store/store";
-import "./theme/global.css";
 import { ThemeProvider } from "@material-ui/core";
-import { MyNationMain } from "./components/MyNationMain";
+
+import * as serviceWorker from "./serviceWorker";
+import "theme/global.css";
+import { theme } from "theme/theme";
+import { store } from "store/store";
+import { MyNationMain } from "app/home/MyNationMain";
 
 ReactDOM.render(
   <React.StrictMode>

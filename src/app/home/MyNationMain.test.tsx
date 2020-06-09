@@ -1,8 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { MyNationMain } from "../components/MyNationMain";
-import { findByTestAttr } from "../functions/findByTestAttr";
-import { Navigation } from "../components/Navigation/Navigation";
+
+import { MyNationMain } from "app/home/MyNationMain";
+import { findByTestAttr } from "functions/findByTestAttr";
+import { Navigation } from "app/common/Navigation/Navigation";
 
 describe("<MyNationMain/>", () => {
   const component = shallow(<MyNationMain />);

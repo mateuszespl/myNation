@@ -2,7 +2,6 @@ import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import NavigationInput from "../NavigationInput/NavigationInput";
 import {
   Grid,
   makeStyles,
@@ -10,6 +9,8 @@ import {
   useMediaQuery,
   IconButton,
 } from "@material-ui/core";
+
+import NavigationInput from "../NavigationInput/NavigationInput";
 import NavigationButtonGroup from "../NavigationButtonGroup/NavigationButtonGroup";
 import NavigationSelect from "../NavigationSelect/NavigationSelect";
 import { ArrowBack } from "@material-ui/icons";
