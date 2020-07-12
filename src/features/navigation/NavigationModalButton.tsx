@@ -8,9 +8,10 @@ import {
   DialogActions,
   IconButton,
 } from "@material-ui/core";
-import NavigationSelect from "../NavigationSelect/NavigationSelect";
 import { connect } from "react-redux";
 import { Done, Close, Sort } from "@material-ui/icons";
+
+import NavigationSelect from "./NavigationSelect";
 
 export interface NavigationModalButtonInterface {
   matches?: boolean;

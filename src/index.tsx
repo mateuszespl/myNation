@@ -7,13 +7,13 @@ import * as serviceWorker from "./serviceWorker";
 import "theme/global.css";
 import { theme } from "theme/theme";
 import { store } from "store/store";
-import { MyNationMain } from "app/home/MyNationMain";
+import { App } from "app/App";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <MyNationMain />
+        <App />
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,

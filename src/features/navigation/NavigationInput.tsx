@@ -3,7 +3,7 @@ import { TextField, Grid, Box } from "@material-ui/core";
 import { connect } from "react-redux";
 
 import { updateInputValue } from "store/actionCreators";
-import AutocompleteList from "../AutocompleteList/AutocompleteList";
+import AutocompleteList from "./AutocompleteList";
 
 export interface NavigationInputInterface {
   inputValue: string;

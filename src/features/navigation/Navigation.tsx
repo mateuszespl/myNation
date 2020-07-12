@@ -9,13 +9,13 @@ import {
   useMediaQuery,
   IconButton,
 } from "@material-ui/core";
-
-import NavigationInput from "../NavigationInput/NavigationInput";
-import NavigationButtonGroup from "../NavigationButtonGroup/NavigationButtonGroup";
-import NavigationSelect from "../NavigationSelect/NavigationSelect";
 import { ArrowBack } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
-import NavigationModalButton from "../NavigationModalButton/NavigationModalButton";
+
+import NavigationInput from "./NavigationInput";
+import NavigationButtonGroup from "./NavigationButtonGroup";
+import NavigationSelect from "./NavigationSelect";
+import NavigationModalButton from "./NavigationModalButton";
 
 const useStyles = makeStyles({
   appBar: {

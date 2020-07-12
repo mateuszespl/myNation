@@ -14,8 +14,8 @@ import {
   CardActions,
 } from "@material-ui/core";
 
-import { NationInfoList } from "../NationInfoList/NationInfoList";
-import NationButton from "../NationButton/NationButton";
+import { NationInfoList } from "./NationInfoList";
+import NationButton from "./NationButton";
 import { setCurrentNationView } from "store/actionCreators";
 
 const useStyles = makeStyles({
