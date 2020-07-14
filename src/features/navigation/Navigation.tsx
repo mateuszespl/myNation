@@ -2,26 +2,15 @@ import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import {
-  Grid,
-  makeStyles,
-  Button,
-  useMediaQuery,
-  IconButton,
-} from "@material-ui/core";
+import { Grid, Button, useMediaQuery, IconButton } from "@material-ui/core";
 import { ArrowBack } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 
 import NavigationInput from "./NavigationInput";
 import NavigationButtonGroup from "./NavigationButtonGroup";
 import NavigationSelect from "./NavigationSelect";
-import NavigationModalButton from "./NavigationModalButton";
-
-const useStyles = makeStyles({
-  appBar: {
-    background: "rgb(40, 40, 40)",
-  },
-});
+import Modal from "../modal/Modal";
+import { NavigationStyles } from "./Navigation.styled";
 
 export interface NavigationInterface {
   home?: boolean;
@@ -30,12 +19,8 @@ export interface NavigationInterface {
 export const Navigation: React.FC<NavigationInterface> = ({ home }) => {
   const matches = useMediaQuery("(max-width:710px)");
   const matches1 = useMediaQuery("(max-width:500px)");
-  const classes = useStyles();
+  const classes = NavigationStyles();
   const history = useHistory();
-  const handleClick = (e: any) => {
-    e.preventDefault();
-    history.push("/");
-  };
   return (
     <AppBar className={`${classes.appBar}`} color="default">
       <Toolbar>
@@ -51,15 +36,15 @@ export const Navigation: React.FC<NavigationInterface> = ({ home }) => {
                   <NavigationButtonGroup />
                 </>
               ) : (
-                <NavigationModalButton matches={matches1} />
+                <Modal matches={matches1} />
               )}
             </>
           ) : !matches1 ? (
-            <Button onClick={handleClick} startIcon={<ArrowBack />}>
+            <Button onClick={() => history.push("/")} startIcon={<ArrowBack />}>
               Powrót
             </Button>
           ) : (
-            <IconButton onClick={handleClick}>
+            <IconButton onClick={() => history.push("/")}>
               <ArrowBack />
             </IconButton>
           )}

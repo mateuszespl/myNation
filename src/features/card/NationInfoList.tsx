@@ -13,7 +13,7 @@ export interface NationInfoListInterface {
   currentNationView: {
     population: number;
     area: number;
-    currencies: Array<any>;
+    currencies: { code: string }[];
     gini: number;
     capital: string;
     alpha3Code: string;
@@ -26,57 +26,44 @@ export const NationInfoList: React.FC<NationInfoListInterface> = ({
   const {
     population,
     area,
-    currencies,
+    currencies: [{ code: currencyCode }],
     gini,
     capital,
     alpha3Code,
-  } = currentNationView;
+  } = currentNationView
+    ? currentNationView
+    : {
+        population: 0,
+        area: 0,
+        currencies: [{ code: "NON" }],
+        gini: 0,
+        capital: "NON",
+        alpha3Code: "AAA",
+      };
+  const dataList = [
+    { text: "Stolica", value: capital, icon: <AccountBalance /> },
+    { icon: <People />, text: "Populacja", value: population },
+    { icon: <Map />, text: "Powierzchnia", value: area, unit: "km²" },
+    { icon: <MonetizationOn />, text: "Waluta", value: currencyCode },
+    { icon: <BarChart />, text: "Współczynnik Giniego", value: gini },
+    { icon: <Flag />, text: "ISO-3", value: alpha3Code },
+  ];
   return (
     <>
       {currentNationView && (
         <List>
-          {capital && (
-            <ListItem>
-              <ListItemIcon>
-                <AccountBalance />
-              </ListItemIcon>
-              <ListItemText>Stolica: {capital}</ListItemText>
-            </ListItem>
+          {dataList.map(
+            ({ text, value, unit, icon }) =>
+              value && (
+                <ListItem>
+                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemText>
+                    {text}: {value}
+                    {unit && unit}
+                  </ListItemText>
+                </ListItem>
+              )
           )}
-          <ListItem>
-            <ListItemIcon>
-              <People />
-            </ListItemIcon>
-            <ListItemText>Populacja: {population}</ListItemText>
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <Map />
-            </ListItemIcon>
-            <ListItemText>Powierzchnia: {area} km²</ListItemText>
-          </ListItem>
-          {currencies && (
-            <ListItem>
-              <ListItemIcon>
-                <MonetizationOn />
-              </ListItemIcon>
-              <ListItemText>Waluta: {currencies[0].code}</ListItemText>
-            </ListItem>
-          )}
-          {gini && (
-            <ListItem>
-              <ListItemIcon>
-                <BarChart />
-              </ListItemIcon>
-              <ListItemText>Współczynnik Giniego: {gini}</ListItemText>
-            </ListItem>
-          )}
-          <ListItem>
-            <ListItemIcon>
-              <Flag />
-            </ListItemIcon>
-            <ListItemText>ISO-3: {alpha3Code}</ListItemText>
-          </ListItem>
         </List>
       )}
     </>

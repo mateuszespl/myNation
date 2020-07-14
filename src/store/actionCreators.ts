@@ -1,17 +1,16 @@
+import { fetchAPI } from "./../api/helpers";
 import * as actionTypes from "./actionTypes";
 
 export const fetchData = () => {
   return (dispatch: any) => {
-    fetch("https://restcountries.eu/rest/v2/all")
-      .then((response) => response.json())
-      .then((data) => {
-        return dispatch({
-          type: actionTypes.FETCH_DATA,
-          countriesDataList: [...data],
-          countriesNameList: [...data.map((nation: any) => nation.name)],
-          infiniteScrollNationsList: [...data.slice(0, 20)],
-        });
+    fetchAPI().then((data) => {
+      return dispatch({
+        type: actionTypes.FETCH_DATA,
+        countriesDataList: [...data],
+        countriesNameList: [...data.map(({ name }: { name: string }) => name)],
+        infiniteScrollNationsList: [...data.slice(0, 20)],
       });
+    });
   };
 };
 
@@ -21,8 +20,8 @@ export const updateInputValue = (inputValue: string) => {
     const autocompleteList =
       inputValue.length > 0
         ? countriesDataList
-            .filter((nation: any) =>
-              nation.name.toLowerCase().includes(inputValue.toLowerCase())
+            .filter(({ name }: { name: string }) =>
+              name.toLowerCase().includes(inputValue.toLowerCase())
             )
             .slice(0, 10)
         : [];
@@ -40,7 +39,7 @@ export const setCurrentNationView = (currentNation: string) => {
     let currentNationView;
     if (typeof currentNation === "string") {
       currentNationView = countriesDataList.find(
-        (nation: any) => nation.name === currentNation
+        ({ name }: { name: string }) => name === currentNation
       );
     } else {
       currentNationView = currentNation;
@@ -83,10 +82,9 @@ export const updateSelectValue = (
           filteredNationsDataList = [];
           break;
         default:
-          filteredNationsDataList = countriesDataList.filter((country: any) =>
-            country.region
-              .toLowerCase()
-              .includes(selectRegionValue.toLowerCase())
+          filteredNationsDataList = countriesDataList.filter(
+            ({ region }: { region: string }) =>
+              region.toLowerCase().includes(selectRegionValue.toLowerCase())
           );
       }
       dispatch({
@@ -109,7 +107,7 @@ export const updateSelectValue = (
         case "PopulationH":
           sortedFilteredNationsDataList = [
             ...countriesDataList,
-          ].sort((a: any, b: any) =>
+          ].sort((a: { population: number }, b: { population: number }) =>
             a.population < b.population
               ? 1
               : a.population === b.population
@@ -122,7 +120,7 @@ export const updateSelectValue = (
         case "PopulationL":
           sortedFilteredNationsDataList = [
             ...countriesDataList,
-          ].sort((a: any, b: any) =>
+          ].sort((a: { population: number }, b: { population: number }) =>
             a.population > b.population
               ? 1
               : a.population === b.population
@@ -135,7 +133,7 @@ export const updateSelectValue = (
         case "AreaL":
           sortedFilteredNationsDataList = [
             ...countriesDataList,
-          ].sort((a: any, b: any) =>
+          ].sort((a: { area: number }, b: { area: number }) =>
             a.area > b.area
               ? 1
               : a.area === b.area
@@ -148,7 +146,7 @@ export const updateSelectValue = (
         case "AreaH":
           sortedFilteredNationsDataList = [
             ...countriesDataList,
-          ].sort((a: any, b: any) =>
+          ].sort((a: { area: number }, b: { area: number }) =>
             a.area > b.area
               ? -1
               : a.area === b.area

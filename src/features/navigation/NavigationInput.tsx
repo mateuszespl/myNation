@@ -3,7 +3,7 @@ import { TextField, Grid, Box } from "@material-ui/core";
 import { connect } from "react-redux";
 
 import { updateInputValue } from "store/actionCreators";
-import AutocompleteList from "./AutocompleteList";
+import AutocompleteList from "../autocomplete/Autocomplete";
 
 export interface NavigationInputInterface {
   inputValue: string;
@@ -48,11 +48,8 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    updateInputValue: (inputValue: string) =>
-      dispatch(updateInputValue(inputValue)),
-  };
+const mapDispatchToProps = {
+  updateInputValue,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationInput);

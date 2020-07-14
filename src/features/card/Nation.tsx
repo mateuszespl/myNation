@@ -4,7 +4,6 @@ import { withRouter, Redirect } from "react-router-dom";
 import {
   Grid,
   Box,
-  makeStyles,
   CardHeader,
   Card,
   CardMedia,
@@ -17,31 +16,12 @@ import {
 import { NationInfoList } from "./NationInfoList";
 import NationButton from "./NationButton";
 import { setCurrentNationView } from "store/actionCreators";
+import { NationStyles } from "./Nation.styled";
 
-const useStyles = makeStyles({
-  main: {
-    background: "rgb(40,40,40)",
-    maxWidth: "100vw",
-    overflow: "hidden",
-    minWidth: "100vw",
-    minHeight: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  cardMedia: {
-    height: "300px",
-  },
-  cardActions: {
-    margin: "10px 0",
-    display: "flex",
-    justifyContent: "space-around",
-    background: "333",
-  },
-});
-
-export interface NationInterface {
-  location: any;
+interface NationInterface {
+  location: {
+    pathname: string;
+  };
   setCurrentNationView: (currentNation: string) => any;
   currentNationView: {
     flag: string;
@@ -49,7 +29,7 @@ export interface NationInterface {
     name: string;
     population: number;
     area: number;
-    currencies: Array<any>;
+    currencies: { code: string }[];
     gini: number;
     alpha3Code: string;
   };
@@ -62,11 +42,12 @@ export const Nation: React.FC<NationInterface> = ({
   currentNationView,
   countriesDataList,
 }) => {
-  const nationName = location.pathname.split("/nation/")[1];
+  const { pathname } = location;
+  const nationName = pathname.split("/nation/")[1];
   useEffect(() => {
     nationName !== "" && setCurrentNationView(nationName);
-  }, []);
-  const classes = useStyles();
+  }, [nationName, setCurrentNationView]);
+  const classes = NationStyles();
   const matches = useMediaQuery("(max-width:970px)");
   return (
     <>
@@ -126,11 +107,8 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    setCurrentNationView: (currentNation: string) =>
-      dispatch(setCurrentNationView(currentNation)),
-  };
+const mapDispatchToProps = {
+  setCurrentNationView,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nation));

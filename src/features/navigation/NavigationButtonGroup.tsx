@@ -6,7 +6,7 @@ import { ViewModule, ViewHeadline } from "@material-ui/icons";
 
 import { setDisplayMode } from "store/actionCreators";
 
-export interface NavigationButtonGroupInterface {
+interface NavigationButtonGroupInterface {
   setDisplayMode: (displayMode: string) => any;
   displayMode: string;
 }
@@ -17,8 +17,8 @@ export const NavigationButtonGroup: React.FC<NavigationButtonGroupInterface> = (
 }) => {
   const matches = useMediaQuery("(max-width:600px)");
   useEffect(() => {
-    !matches ? setDisplayMode("grid") : setDisplayMode("list");
-  }, [matches]);
+    matches ? setDisplayMode("grid") : setDisplayMode("list");
+  }, [matches, setDisplayMode]);
   return (
     <ButtonGroup variant="text" color="default" aria-label="display-buttons">
       <IconButton
@@ -43,11 +43,8 @@ const mapStateToProps = (state: any) => {
   return { displayMode: state.displayMode };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    setDisplayMode: (displayMode: string) =>
-      dispatch(setDisplayMode(displayMode)),
-  };
+const mapDispatchToProps = {
+  setDisplayMode,
 };
 
 export default connect(

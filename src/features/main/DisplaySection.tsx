@@ -1,14 +1,15 @@
 import React, { useEffect, Suspense } from "react";
 import { Box, Grid } from "@material-ui/core";
 import { connect } from "react-redux";
-import DisplayList from "./DisplayList";
 import { Skeleton } from "@material-ui/lab";
 
 import { fetchData } from "store/actionCreators";
+import DisplayList from "./DisplayList";
+
 const Nation = React.lazy(() => import("features/card/Nation"));
 
-export interface DisplaySectionInterface {
-  countriesDataList: Array<{}>;
+interface DisplaySectionInterface {
+  countriesDataList: {}[];
   fetchData: () => any;
   fetchedDataSuccessfull: boolean;
   home?: boolean;
@@ -21,7 +22,7 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
 }) => {
   useEffect(() => {
     countriesDataList.length === 0 && fetchData();
-  }, [countriesDataList.length]);
+  }, [countriesDataList.length, fetchData]);
   return (
     <Box marginTop="56px" component="section">
       {home ? (
@@ -48,10 +49,8 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    fetchData: () => dispatch(fetchData()),
-  };
+const mapDispatchToProps = {
+  fetchData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DisplaySection);

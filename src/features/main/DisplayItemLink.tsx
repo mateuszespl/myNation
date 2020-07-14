@@ -7,7 +7,6 @@ import {
   CardContent,
   Typography,
   Grid,
-  makeStyles,
   Chip,
   useMediaQuery,
 } from "@material-ui/core";
@@ -21,35 +20,7 @@ import {
   Flag,
 } from "@material-ui/icons";
 
-interface propsInterface {
-  displayMode?: string;
-}
-
-const useStyles = makeStyles({
-  box: (props: propsInterface) => ({
-    position: "relative",
-    height: props.displayMode === "list" ? "160px" : "250px",
-    width: props.displayMode === "list" ? "85vw" : "300px",
-    margin: "15px 20px",
-  }),
-  card: (props: propsInterface) => ({
-    display: props.displayMode === "list" ? "flex" : "",
-    position: "relative",
-  }),
-  cardMedia: {
-    height: "160px",
-    width: "300px",
-  },
-  cardContent: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  nationName: {
-    fontSize: "18px",
-    fontWeight: 800,
-  },
-});
+import { DisplayItemLinkStyles } from "./DisplayItemLink.styled";
 
 export interface DisplayItemLinkInterface {
   country: {
@@ -78,17 +49,25 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
     flag,
     population,
     area,
-    currencies,
+    currencies: [{ code: currencyCode }],
     gini,
     capital,
     alpha3Code,
   } = country;
+  const dataList = [
+    { text: "Stolica", value: capital, icon: <AccountBalance /> },
+    { icon: <People />, text: "Populacja", value: population },
+    { icon: <Map />, text: "Powierzchnia", value: area, unit: "km²" },
+    { icon: <MonetizationOn />, text: "Waluta", value: currencyCode },
+    { icon: <BarChart />, text: "Współczynnik Giniego", value: gini },
+    { icon: <Flag />, text: "ISO-3", value: alpha3Code },
+  ];
   const matches = useMediaQuery("(max-width:1000px)");
   const matches1 = useMediaQuery("(max-width:800px");
   const props = {
     displayMode: displayMode,
   };
-  const classes = useStyles(props);
+  const classes = DisplayItemLinkStyles(props);
   return (
     <Grid item>
       <Box className={`${classes.box}`}>
@@ -138,43 +117,18 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
                   xs={displayMode === "list" ? true : undefined}
                   spacing={1}
                 >
-                  {capital && (
-                    <Grid item>
-                      <Chip
-                        label={`Stolica: ${capital}`}
-                        icon={<AccountBalance />}
-                      />
-                    </Grid>
-                  )}
-                  <Grid item>
-                    <Chip
-                      label={`Populacja: ${population} os`}
-                      icon={<People />}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <Chip label={`Powierzchnia: ${area} km²`} icon={<Map />} />
-                  </Grid>
-                  {!matches && (
-                    <>
-                      <Grid item>
-                        <Chip
-                          label={`Waluta: ${currencies[0].code}`}
-                          icon={<MonetizationOn />}
-                        />
-                      </Grid>
-                      {gini && (
+                  {dataList.map(
+                    ({ icon, text, value, unit }) =>
+                      value && (
                         <Grid item>
                           <Chip
-                            label={`Współczynnik Giniego: ${gini}`}
-                            icon={<BarChart />}
+                            label={`${text}: ${value}${
+                              unit !== undefined ? unit : ""
+                            }`}
+                            icon={icon}
                           />
                         </Grid>
-                      )}
-                      <Grid item>
-                        <Chip label={`ISO-3: ${alpha3Code}`} icon={<Flag />} />
-                      </Grid>
-                    </>
+                      )
                   )}
                 </Grid>
               )}

@@ -6,16 +6,16 @@ import { useHistory } from "react-router-dom";
 
 import { setCurrentNationView } from "store/actionCreators";
 
-export interface NationButtonInterface {
+interface NationButtonInterface {
   next?: boolean;
   setCurrentNationView: (nation: any) => any;
   nextNationView: {
     name: string;
-    flag: any;
+    flag: string;
   };
   prevNationView: {
     name: string;
-    flag: any;
+    flag: string;
   };
 }
 
@@ -31,70 +31,34 @@ export const NationButton: React.FC<NationButtonInterface> = ({
     setCurrentNationView(next ? nextNationView : prevNationView);
     history.push(next ? nextNationView.name : prevNationView.name);
   };
+  let currentView = next ? nextNationView : prevNationView;
   return (
-    <>
-      {!next ? (
-        <Grid container direction="column" justify="center" alignItems="center">
-          <Grid item>
-            <Fab
-              variant="extended"
-              disabled={!prevNationView}
-              onClick={(e) => handleClick(e)}
-            >
-              <NavigateBefore />
-              Poprzedni
-            </Fab>
-          </Grid>
-          {prevNationView && (
-            <Grid item>
-              <Chip
-                label={
-                  prevNationView.name.length > 10
-                    ? prevNationView.name.substring(0, 10) + "..."
-                    : prevNationView.name
-                }
-                avatar={
-                  <Avatar
-                    alt={prevNationView.name + " flag"}
-                    src={prevNationView.flag}
-                  />
-                }
-              />
-            </Grid>
-          )}
-        </Grid>
-      ) : (
-        <Grid container direction="column" justify="center" alignItems="center">
-          <Grid item>
-            <Fab
-              variant="extended"
-              disabled={!nextNationView}
-              onClick={(e) => handleClick(e, next)}
-            >
-              Następny
-              <NavigateNext />
-            </Fab>
-          </Grid>
-          {nextNationView && (
-            <Grid item>
-              <Chip
-                label={
-                  nextNationView.name.length > 10
-                    ? nextNationView.name.substring(0, 10) + "..."
-                    : nextNationView.name
-                }
-                avatar={
-                  <Avatar
-                    alt={nextNationView.name + " flag"}
-                    src={nextNationView.flag}
-                  />
-                }
-              />
-            </Grid>
-          )}
+    <Grid container direction="column" justify="center" alignItems="center">
+      <Grid item>
+        <Fab
+          variant="extended"
+          disabled={!currentView}
+          onClick={(e) => handleClick(e)}
+        >
+          {next ? <NavigateNext /> : <NavigateBefore />}
+          {next ? "Następny" : "Poprzedni"}
+        </Fab>
+      </Grid>
+      {currentView && (
+        <Grid item>
+          <Chip
+            label={
+              currentView.name.length > 10
+                ? currentView.name.substring(0, 10) + "..."
+                : currentView.name
+            }
+            avatar={
+              <Avatar alt={currentView.name + " flag"} src={currentView.flag} />
+            }
+          />
         </Grid>
       )}
-    </>
+    </Grid>
   );
 };
 
@@ -105,11 +69,8 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    setCurrentNationView: (nation: any) =>
-      dispatch(setCurrentNationView(nation)),
-  };
+const mapDispatchToProps = {
+  setCurrentNationView,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NationButton);
