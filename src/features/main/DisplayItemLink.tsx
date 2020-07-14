@@ -117,7 +117,7 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
                   xs={displayMode === "list" ? true : undefined}
                   spacing={1}
                 >
-                  {dataList.map(
+                  {(matches ? dataList.slice(0, 3) : dataList).map(
                     ({ icon, text, value, unit }) =>
                       value && (
                         <Grid item>

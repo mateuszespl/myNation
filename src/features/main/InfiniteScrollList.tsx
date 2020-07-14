@@ -32,6 +32,7 @@ export const InfiniteScrollList: React.FC<InfiniteScrollListInterface> = ({
       pageStart={0}
       loadMore={updateInfiniteScroll}
       hasMore={infiniteScrollHasMore}
+      threshold={300}
       loader={
         <Grid
           className={`${classes.grid}`}
