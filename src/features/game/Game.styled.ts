@@ -4,4 +4,7 @@ export const GameStyles = makeStyles({
   grid: {
     minHeight: "calc(100vh - 64px)",
   },
+  cardMedia: {
+    height: "300px",
+  },
 });

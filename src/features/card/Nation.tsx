@@ -74,7 +74,7 @@ export const Nation: React.FC<NationInterface> = ({
                   <CardMedia
                     className={classes.cardMedia}
                     image={currentNationView.flag}
-                  ></CardMedia>
+                  />
                   {matches && (
                     <CardActions className={classes.cardActions}>
                       <NationButton />

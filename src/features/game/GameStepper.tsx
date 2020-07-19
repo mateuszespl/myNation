@@ -1,6 +1,10 @@
 import React from "react";
 import { MobileStepper, Button } from "@material-ui/core";
-import { KeyboardArrowRight, KeyboardArrowLeft } from "@material-ui/icons";
+import {
+  KeyboardArrowRight,
+  KeyboardArrowLeft,
+  Flag,
+} from "@material-ui/icons";
 
 interface GameStepperInterface {
   activeStep: number;
@@ -18,14 +22,17 @@ export const GameStepper: React.FC<GameStepperInterface> = ({
       position="static"
       activeStep={activeStep}
       nextButton={
-        <Button
-          size="small"
-          onClick={() => setActiveStep(activeStep + 1)}
-          disabled={activeStep === 10}
-        >
-          Następne
-          <KeyboardArrowRight />
-        </Button>
+        activeStep < 9 ? (
+          <Button size="small" onClick={() => setActiveStep(activeStep + 1)}>
+            Następne
+            <KeyboardArrowRight />
+          </Button>
+        ) : (
+          <Button size="small" onClick={() => alert("Gra zakończona")}>
+            Zakończ grę
+            <Flag />
+          </Button>
+        )
       }
       backButton={
         <Button

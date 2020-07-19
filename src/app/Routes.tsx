@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import DisplaySection from "features/main/DisplaySection";
 import { Navigation } from "features/navigation/Navigation";
 import Game from "features/game/Game";
-import { GameNavigation } from "features/game/GameNavigation";
+import GameNavigation from "features/game/GameNavigation";
 
 export const Routes: React.FC = () => {
   return (

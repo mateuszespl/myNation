@@ -27,6 +27,7 @@ export interface initialStateInterface {
   displayMode: string;
   selectRegionValue: string;
   selectSortValue: string;
+  currentScore: { answered: false; correctAnswer: false }[];
 }
 
 const initialState: initialStateInterface = {
@@ -77,6 +78,18 @@ const initialState: initialStateInterface = {
   displayMode: "list",
   selectRegionValue: "All",
   selectSortValue: "None",
+  currentScore: [
+    { answered: false, correctAnswer: false },
+    { answered: false, correctAnswer: false },
+    { answered: false, correctAnswer: false },
+    { answered: false, correctAnswer: false },
+    { answered: false, correctAnswer: false },
+    { answered: false, correctAnswer: false },
+    { answered: false, correctAnswer: false },
+    { answered: false, correctAnswer: false },
+    { answered: false, correctAnswer: false },
+    { answered: false, correctAnswer: false },
+  ],
 };
 
 export const reducer = (state = initialState, action: any) => {
