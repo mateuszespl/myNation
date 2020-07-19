@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { SkeletonBox } from "features/skeleton/SkeletonBox";
 import { DisplayListStyles } from "./DisplayList.styled";
 import InfiniteScrollList from "./InfiniteScrollList";
+import { initialStateInterface } from "store/reducer";
 
 interface DisplayListInterface {
   skeletonDataList: Array<number>;
@@ -39,7 +40,7 @@ export const DisplayList: React.FC<DisplayListInterface> = ({
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: initialStateInterface) => {
   return {
     skeletonDataList: state.skeletonDataList,
     fetchedDataSuccessfull: state.fetchedDataSuccessfull,

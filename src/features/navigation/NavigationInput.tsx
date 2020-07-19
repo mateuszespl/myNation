@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import { updateInputValue } from "store/actionCreators";
 import AutocompleteList from "../autocomplete/Autocomplete";
+import { initialStateInterface } from "store/reducer";
 
 export interface NavigationInputInterface {
   inputValue: string;
@@ -40,7 +41,7 @@ export const NavigationInput: React.FC<NavigationInputInterface> = ({
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: initialStateInterface) => {
   return {
     inputValue: state.inputValue,
     countriesNameList: state.countriesNameList,

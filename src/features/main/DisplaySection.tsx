@@ -5,6 +5,7 @@ import { Skeleton } from "@material-ui/lab";
 
 import { fetchData } from "store/actionCreators";
 import DisplayList from "./DisplayList";
+import { initialStateInterface } from "store/reducer";
 
 const Nation = React.lazy(() => import("features/card/Nation"));
 
@@ -24,7 +25,7 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
     countriesDataList.length === 0 && fetchData();
   }, [countriesDataList.length, fetchData]);
   return (
-    <Box marginTop="56px" component="section">
+    <Box marginTop="64px" component="section">
       {home ? (
         <DisplayList />
       ) : (
@@ -42,7 +43,7 @@ export const DisplaySection: React.FC<DisplaySectionInterface> = ({
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: initialStateInterface) => {
   return {
     countriesDataList: state.countriesDataList,
     fetchedDataSuccessfull: state.fetchedDataSuccessfull,

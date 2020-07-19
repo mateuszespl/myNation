@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 
 import { updateInputValue, setCurrentNationView } from "store/actionCreators";
 import { AutocompleteStyles } from "./Autocomplete.styled";
+import { initialStateInterface } from "store/reducer";
 
 interface AutocompleteInterface {
   autocompleteList: { name: string; flag: string }[];
-  updateInputValue: (inputValue: string) => any;
-  setCurrentNationView: (currentNation: string) => any;
+  updateInputValue: (inputValue: string) => void;
+  setCurrentNationView: (currentNation: string) => void;
   home?: boolean;
 }
 
@@ -44,7 +45,7 @@ export const Autocomplete: React.FC<AutocompleteInterface> = ({
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: initialStateInterface) => {
   return {
     autocompleteList: state.autocompleteList,
   };

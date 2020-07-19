@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { constants } from "./constants";
 import { updateSelectValue } from "store/actionCreators";
 import { Select } from "components/Select";
+import { initialStateInterface } from "store/reducer";
 
 interface NavigationSelectInterface {
   selectRegionValue: string;
@@ -51,7 +52,7 @@ export const NavigationSelect: React.FC<NavigationSelectInterface> = ({
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: initialStateInterface) => {
   return {
     selectRegionValue: state.selectRegionValue,
     selectSortValue: state.selectSortValue,

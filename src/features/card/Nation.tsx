@@ -17,12 +17,13 @@ import { NationInfoList } from "./NationInfoList";
 import NationButton from "./NationButton";
 import { setCurrentNationView } from "store/actionCreators";
 import { NationStyles } from "./Nation.styled";
+import { initialStateInterface } from "store/reducer";
 
 interface NationInterface {
   location: {
     pathname: string;
   };
-  setCurrentNationView: (currentNation: string) => any;
+  setCurrentNationView: (currentNation: string) => void;
   currentNationView: {
     flag: string;
     capital: string;
@@ -100,7 +101,7 @@ export const Nation: React.FC<NationInterface> = ({
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: initialStateInterface) => {
   return {
     currentNationView: state.currentNationView,
     countriesDataList: state.countriesDataList,

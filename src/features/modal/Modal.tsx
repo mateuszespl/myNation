@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import NavigationSelect from "../navigation/NavigationSelect";
 import { ModalButton } from "./ModalButton";
+import { initialStateInterface } from "store/reducer";
 
 interface ModalInterface {
   matches?: boolean;
@@ -54,15 +55,13 @@ export const Modal: React.FC<ModalInterface> = ({
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: initialStateInterface) => {
   return {
     selectRegionValue: state.selectRegionValue,
     selectSortValue: state.selectSortValue,
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {};
-};
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);

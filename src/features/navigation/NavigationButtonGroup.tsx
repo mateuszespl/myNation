@@ -5,6 +5,7 @@ import { IconButton, useMediaQuery } from "@material-ui/core";
 import { ViewModule, ViewHeadline } from "@material-ui/icons";
 
 import { setDisplayMode } from "store/actionCreators";
+import { initialStateInterface } from "store/reducer";
 
 interface NavigationButtonGroupInterface {
   setDisplayMode: (displayMode: string) => any;
@@ -39,7 +40,7 @@ export const NavigationButtonGroup: React.FC<NavigationButtonGroupInterface> = (
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: initialStateInterface) => {
   return { displayMode: state.displayMode };
 };
 

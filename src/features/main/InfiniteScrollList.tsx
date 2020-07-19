@@ -6,6 +6,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import { updateInfiniteScroll, updateInputValue } from "store/actionCreators";
 import { SkeletonBox } from "features/skeleton/SkeletonBox";
 import { InfiniteScrollListStyles } from "./InfiniteScrollList.styled";
+import { initialStateInterface } from "store/reducer";
 
 const DisplayItemLink = React.lazy(() => import("./DisplayItemLink"));
 
@@ -71,7 +72,7 @@ export const InfiniteScrollList: React.FC<InfiniteScrollListInterface> = ({
   );
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: initialStateInterface) => ({
   infiniteScrollNationsList: state.infiniteScrollNationsList,
   filteredNationsDataList: state.filteredNationsDataList,
   displayMode: state.displayMode,

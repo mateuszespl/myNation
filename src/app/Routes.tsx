@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import DisplaySection from "features/main/DisplaySection";
 import { Navigation } from "features/navigation/Navigation";
+import Game from "features/game/Game";
+import { GameNavigation } from "features/game/GameNavigation";
 
 export const Routes: React.FC = () => {
   return (
@@ -15,6 +17,10 @@ export const Routes: React.FC = () => {
         <Route path="/nation/:nationName">
           <Navigation />
           <DisplaySection />
+        </Route>
+        <Route path="/game">
+          <GameNavigation />
+          <Game />
         </Route>
       </Switch>
     </Router>

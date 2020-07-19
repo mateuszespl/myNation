@@ -5,18 +5,15 @@ import { NavigateBefore, NavigateNext } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 
 import { setCurrentNationView } from "store/actionCreators";
+import { initialStateInterface } from "store/reducer";
+
+type nationView = { name: string; flag: string };
 
 interface NationButtonInterface {
   next?: boolean;
-  setCurrentNationView: (nation: any) => any;
-  nextNationView: {
-    name: string;
-    flag: string;
-  };
-  prevNationView: {
-    name: string;
-    flag: string;
-  };
+  setCurrentNationView: (nation: nationView) => void;
+  nextNationView: nationView;
+  prevNationView: nationView;
 }
 
 export const NationButton: React.FC<NationButtonInterface> = ({
@@ -38,7 +35,9 @@ export const NationButton: React.FC<NationButtonInterface> = ({
         <Fab
           variant="extended"
           disabled={!currentView}
-          onClick={(e) => handleClick(e)}
+          onClick={(e) =>
+            handleClick(e, currentView === nextNationView && next)
+          }
         >
           {next ? <NavigateNext /> : <NavigateBefore />}
           {next ? "Następny" : "Poprzedni"}
@@ -62,7 +61,7 @@ export const NationButton: React.FC<NationButtonInterface> = ({
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: initialStateInterface) => {
   return {
     nextNationView: state.nextNationView,
     prevNationView: state.prevNationView,

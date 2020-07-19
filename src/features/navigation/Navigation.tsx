@@ -3,7 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { Grid, Button, useMediaQuery, IconButton } from "@material-ui/core";
-import { ArrowBack } from "@material-ui/icons";
+import { ArrowBack, Gamepad } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 
 import NavigationInput from "./NavigationInput";
@@ -40,13 +40,29 @@ export const Navigation: React.FC<NavigationInterface> = ({ home }) => {
               )}
             </>
           ) : !matches1 ? (
-            <Button onClick={() => history.push("/")} startIcon={<ArrowBack />}>
-              Powrót
-            </Button>
+            <>
+              <Button
+                onClick={() => history.push("/game")}
+                startIcon={<Gamepad />}
+              >
+                Zagraj
+              </Button>
+              <Button
+                onClick={() => history.push("/")}
+                startIcon={<ArrowBack />}
+              >
+                Powrót
+              </Button>
+            </>
           ) : (
-            <IconButton onClick={() => history.push("/")}>
-              <ArrowBack />
-            </IconButton>
+            <>
+              <IconButton onClick={() => history.push("/game")}>
+                <Gamepad />
+              </IconButton>
+              <IconButton onClick={() => history.push("/")}>
+                <ArrowBack />
+              </IconButton>
+            </>
           )}
         </Grid>
       </Toolbar>

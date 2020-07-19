@@ -33,7 +33,14 @@ export const updateInputValue = (inputValue: string) => {
   };
 };
 
-export const setCurrentNationView = (currentNation: string) => {
+export const setCurrentNationView = (
+  currentNation:
+    | {
+        name: string;
+        flag: string;
+      }
+    | string
+) => {
   return (dispatch: any, getState: any) => {
     const countriesDataList = getState().countriesDataList;
     let currentNationView;

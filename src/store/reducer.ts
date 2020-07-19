@@ -1,6 +1,35 @@
 import * as actionTypes from "./actionTypes";
 
-const initialState = {
+export interface initialStateInterface {
+  countriesDataList: {}[];
+  skeletonDataList: number[];
+  filteredNationsDataList: {}[];
+  countriesNameList: string[];
+  infiniteScrollNationsList: {}[];
+  infiniteScrollPage: number;
+  infiniteScrollNationsCount: number;
+  infiniteScrollHasMore: boolean;
+  fetchedDataSuccessfull: boolean;
+  autocompleteList: { name: string; flag: string }[];
+  inputValue: string;
+  currentNationView: {
+    flag: string;
+    capital: string;
+    name: string;
+    population: number;
+    area: number;
+    currencies: { code: string }[];
+    gini: number;
+    alpha3Code: string;
+  };
+  nextNationView: { name: string; flag: string };
+  prevNationView: { name: string; flag: string };
+  displayMode: string;
+  selectRegionValue: string;
+  selectSortValue: string;
+}
+
+const initialState: initialStateInterface = {
   countriesDataList: [],
   skeletonDataList: [
     1,
@@ -33,9 +62,18 @@ const initialState = {
   fetchedDataSuccessfull: false,
   autocompleteList: [],
   inputValue: "",
-  currentNationView: {},
-  nextNationView: "",
-  prevNationView: "",
+  currentNationView: {
+    flag: "",
+    capital: "",
+    name: "",
+    population: 0,
+    area: 0,
+    currencies: [{ code: "" }],
+    gini: 0,
+    alpha3Code: "",
+  },
+  nextNationView: { name: "", flag: "" },
+  prevNationView: { name: "", flag: "" },
   displayMode: "list",
   selectRegionValue: "All",
   selectSortValue: "None",
