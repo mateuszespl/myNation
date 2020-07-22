@@ -14,10 +14,15 @@ import { useHistory } from "react-router-dom";
 
 import { initialStateInterface } from "store/reducer";
 import { GameNavigationStyles } from "./GameNavigation.styled";
+import { gameRestart } from "store/actionCreators";
 
-interface GameNavigationInterface {}
+interface GameNavigationInterface {
+  gameRestart: () => void;
+}
 
-export const GameNavigation: React.FC<GameNavigationInterface> = ({}) => {
+export const GameNavigation: React.FC<GameNavigationInterface> = ({
+  gameRestart,
+}) => {
   const classes = GameNavigationStyles();
   const matches = useMediaQuery("(max-width:710px)");
   const matches1 = useMediaQuery("(max-width:500px)");
@@ -27,7 +32,7 @@ export const GameNavigation: React.FC<GameNavigationInterface> = ({}) => {
       <Toolbar>
         <Grid container alignItems="center" justify="space-around">
           <Typography variant="subtitle1">myNation</Typography>
-          <Button onClick={() => history.push("/")} startIcon={<Replay />}>
+          <Button onClick={() => gameRestart()} startIcon={<Replay />}>
             Zacznij od nowa
           </Button>
           {!matches1 ? (
@@ -47,6 +52,6 @@ export const GameNavigation: React.FC<GameNavigationInterface> = ({}) => {
 
 const mapStateToProps = (state: initialStateInterface) => ({});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { gameRestart };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameNavigation);

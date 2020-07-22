@@ -1,31 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import {
-  Box,
-  Grid,
-  Paper,
-  Card,
-  CardContent,
-  Typography,
-  CardActions,
-  Button,
-  CardMedia,
-} from "@material-ui/core";
+import { Box, Grid, Paper, Card } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 
 import { initialStateInterface } from "store/reducer";
 import { GameStyles } from "./Game.styled";
 import { GameStepper } from "./GameStepper";
-import { createGame } from "./helpers";
+import { GameAnswers } from "./GameAnswers";
+import { gameSetup } from "store/actionCreators";
+import { GameQuestion } from "./GameQuestion";
 
 interface GameInterface {
   countriesDataList: {}[];
+  gameSetup: () => void;
+  currentGame: {
+    question: string;
+    nation: { name: string; flag: string };
+    answers: any[];
+    value: string;
+  }[];
 }
 
-export const Game: React.FC<GameInterface> = ({ countriesDataList }) => {
+export const Game: React.FC<GameInterface> = ({
+  countriesDataList,
+  gameSetup,
+  currentGame,
+}) => {
   const [activeStep, setActiveStep] = useState(0);
   const classes = GameStyles();
-  const game = createGame(countriesDataList);
+  useEffect(() => {
+    countriesDataList.length > 0 && gameSetup();
+  }, [gameSetup, countriesDataList.length]);
   return (
     <Box marginTop="64px" component="section">
       {countriesDataList.length === 0 ? (
@@ -37,42 +42,26 @@ export const Game: React.FC<GameInterface> = ({ countriesDataList }) => {
           alignItems="center"
           justify="center"
         >
-          <Grid item>
-            <Paper>
-              <Card>
-                <CardContent>
-                  <Typography align="center" variant="h4" component="h2">
-                    {game[activeStep].question}
-                  </Typography>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={game[activeStep].nation.flag}
+          {currentGame.length > 0 && (
+            <Grid item>
+              <Paper>
+                <Card>
+                  <GameQuestion
+                    activeStep={activeStep}
+                    currentGame={currentGame}
                   />
-                  <Typography align="center" variant="h5" component="h3">
-                    {game[activeStep].nation.name}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Grid
-                    container
-                    alignItems="center"
-                    justify="space-around"
-                    wrap="wrap"
-                  >
-                    {game[activeStep].answers.map((answer: any) => (
-                      <Grid item>
-                        <Button>{answer}</Button>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </CardActions>
-              </Card>
-              <GameStepper
-                activeStep={activeStep}
-                setActiveStep={setActiveStep}
-              />
-            </Paper>
-          </Grid>
+                  <GameAnswers
+                    activeStep={activeStep}
+                    currentGame={currentGame}
+                  />
+                </Card>
+                <GameStepper
+                  activeStep={activeStep}
+                  setActiveStep={setActiveStep}
+                />
+              </Paper>
+            </Grid>
+          )}
         </Grid>
       )}
     </Box>
@@ -81,8 +70,9 @@ export const Game: React.FC<GameInterface> = ({ countriesDataList }) => {
 
 const mapStateToProps = (state: initialStateInterface) => ({
   countriesDataList: state.countriesDataList,
+  currentGame: state.currentGame,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { gameSetup };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

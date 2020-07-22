@@ -28,9 +28,10 @@ export interface initialStateInterface {
   selectRegionValue: string;
   selectSortValue: string;
   currentScore: { answered: false; correctAnswer: false }[];
+  currentGame: [];
 }
 
-const initialState: initialStateInterface = {
+export const initialState: initialStateInterface = {
   countriesDataList: [],
   skeletonDataList: [
     1,
@@ -90,6 +91,7 @@ const initialState: initialStateInterface = {
     { answered: false, correctAnswer: false },
     { answered: false, correctAnswer: false },
   ],
+  currentGame: [],
 };
 
 export const reducer = (state = initialState, action: any) => {
@@ -136,6 +138,22 @@ export const reducer = (state = initialState, action: any) => {
         filteredNationsDataList: action.filteredNationsDataList,
         infiniteScrollNationsList: action.infiniteScrollNationsList,
         infiniteScrollHasMore: action.infiniteScrollHasMore,
+      };
+    case actionTypes.CURRENT_GAME_UPDATE:
+      return {
+        ...state,
+        currentGame: action.currentGame,
+      };
+    case actionTypes.GAME_SCORE_UPDATE:
+      return {
+        ...state,
+        currentScore: action.currentScore,
+      };
+    case actionTypes.RESTART_GAME:
+      return {
+        ...state,
+        currentScore: action.currentScore,
+        currentGame: action.currentGame,
       };
     default:
       return {

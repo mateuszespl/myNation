@@ -55,7 +55,9 @@ export const Select: React.FC<SelectInterface> = ({
           size="small"
         >
           {data.map(({ value, text }) => (
-            <MenuItem value={value}>{text}</MenuItem>
+            <MenuItem key={value} value={value}>
+              {text}
+            </MenuItem>
           ))}
         </TextField>
       )}

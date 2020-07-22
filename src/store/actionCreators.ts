@@ -1,3 +1,5 @@
+import { initialState } from "./reducer";
+import { createGame } from "./../features/game/helpers";
 import { fetchAPI } from "./../api/helpers";
 import * as actionTypes from "./actionTypes";
 
@@ -206,6 +208,47 @@ export const updateInfiniteScroll = () => {
       infiniteScrollPage: nextInfiniteScrollPage,
       infiniteScrollNationsCount: updatedInfiniteScrollNationsCount,
       infiniteScrollHasMore: nextInfiniteScrollPage === 13 ? false : true,
+    });
+  };
+};
+
+export const gameSetup = () => {
+  return (dispatch: any, getState: any) => {
+    const countriesDataList = getState().countriesDataList;
+    dispatch({
+      type: actionTypes.CURRENT_GAME_UPDATE,
+      currentGame: createGame(countriesDataList),
+    });
+  };
+};
+
+export const gameScoreUpdate = (
+  answer: string,
+  id: number,
+  correctAnswer: string
+) => {
+  return (dispatch: any, getState: any) => {
+    const currentAnswer = {
+      answered: true,
+      correctAnswer: answer === correctAnswer ? true : false,
+    };
+    let currentScore = getState().currentScore;
+    currentScore[id] = currentAnswer;
+    console.log(answer, correctAnswer);
+    dispatch({
+      type: actionTypes.GAME_SCORE_UPDATE,
+      currentScore: [...currentScore],
+    });
+  };
+};
+
+export const gameRestart = () => {
+  return (dispatch: any, getState: any) => {
+    const countriesDataList = getState().countriesDataList;
+    dispatch({
+      type: actionTypes.RESTART_GAME,
+      currentGame: createGame(countriesDataList),
+      currentScore: initialState.currentScore,
     });
   };
 };
