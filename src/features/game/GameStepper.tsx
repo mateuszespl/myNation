@@ -9,15 +9,17 @@ import {
 interface GameStepperInterface {
   activeStep: number;
   setActiveStep: (updatedStep: number) => void;
+  setOpen: (updatedStatus: boolean) => void;
 }
 
 export const GameStepper: React.FC<GameStepperInterface> = ({
   activeStep,
   setActiveStep,
+  setOpen,
 }) => {
   return (
     <MobileStepper
-      variant="progress"
+      variant="dots"
       steps={10}
       position="static"
       activeStep={activeStep}
@@ -28,7 +30,7 @@ export const GameStepper: React.FC<GameStepperInterface> = ({
             <KeyboardArrowRight />
           </Button>
         ) : (
-          <Button size="small" onClick={() => alert("Gra zakończona")}>
+          <Button size="small" onClick={() => setOpen(true)}>
             Zakończ grę
             <Flag />
           </Button>

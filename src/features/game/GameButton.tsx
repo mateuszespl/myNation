@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Grid, Button } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 
 import { initialStateInterface } from "store/reducer";
 import { GameButtonStyles } from "./GameButton.styled";
@@ -29,71 +29,69 @@ export const GameButton: React.FC<GameButtonInterface> = ({
   };
   const classes = GameButtonStyles(props);
   return (
-    <Grid item>
-      <Button
-        onClick={(e) =>
-          gameScoreUpdate(
-            String(e.currentTarget.value),
-            activeStep,
-            String(Object.values(nation)[Object.keys(nation).indexOf(value)])
-          )
-        }
-        className={classes.button}
-        variant="outlined"
-        value={String(
-          Object.values(answer)[Object.keys(answer).indexOf(value)] &&
-            String(Object.values(answer)[Object.keys(answer).indexOf(value)])
-        )}
-        disabled={currentScore[activeStep].answered}
-      >
-        {(() => {
-          switch (value) {
-            case "capital":
-              return String(
-                Object.values(answer)[Object.keys(answer).indexOf(value)]
-              );
-            case "currencies": {
-              const object: any = Object.values(answer)[
-                Object.keys(answer).indexOf(value)
-              ];
-              return object[0].code;
-            }
-            case "region":
-              return String(
-                Object.values(answer)[Object.keys(answer).indexOf(value)]
-              );
-            case "alpha3Code":
-              return String(
-                Object.values(answer)[Object.keys(answer).indexOf(value)]
-              );
-            case "flag":
-              return (
-                <img
-                  className={classes.img}
-                  src={String(
-                    Object.values(answer)[Object.keys(answer).indexOf(value)]
-                  )}
-                  alt={"answer flag"}
-                />
-              );
-            case "population":
-              return (
-                String(
-                  Object.values(answer)[Object.keys(answer).indexOf(value)]
-                ) + " osób"
-              );
-            case "area":
-              return (
-                String(
-                  Object.values(answer)[Object.keys(answer).indexOf(value)]
-                ) + "km²"
-              );
-            default:
-              return "-";
+    <Button
+      onClick={(e) =>
+        gameScoreUpdate(
+          String(e.currentTarget.value),
+          activeStep,
+          String(Object.values(nation)[Object.keys(nation).indexOf(value)])
+        )
+      }
+      variant="outlined"
+      value={String(
+        Object.values(answer)[Object.keys(answer).indexOf(value)] &&
+          String(Object.values(answer)[Object.keys(answer).indexOf(value)])
+      )}
+      disabled={currentScore[activeStep].answered}
+      className={classes.button}
+    >
+      {(() => {
+        switch (value) {
+          case "capital":
+            return String(
+              Object.values(answer)[Object.keys(answer).indexOf(value)]
+            );
+          case "currencies": {
+            const object: any = Object.values(answer)[
+              Object.keys(answer).indexOf(value)
+            ];
+            return object[0].code;
           }
-        })()}
-      </Button>
-    </Grid>
+          case "region":
+            return String(
+              Object.values(answer)[Object.keys(answer).indexOf(value)]
+            );
+          case "alpha3Code":
+            return String(
+              Object.values(answer)[Object.keys(answer).indexOf(value)]
+            );
+          case "flag":
+            return (
+              <img
+                className={classes.img}
+                src={String(
+                  Object.values(answer)[Object.keys(answer).indexOf(value)]
+                )}
+                alt={"answer flag"}
+              />
+            );
+          case "population":
+            return (
+              String(
+                Object.values(answer)[Object.keys(answer).indexOf(value)]
+              ) + " osób"
+            );
+          case "area":
+            return (
+              String(
+                Object.values(answer)[Object.keys(answer).indexOf(value)]
+              ) + "km²"
+            );
+          default:
+            return "-";
+        }
+      })()}
+    </Button>
   );
 };
 

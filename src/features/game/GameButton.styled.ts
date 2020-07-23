@@ -16,5 +16,8 @@ export const GameButtonStyles = makeStyles({
         ? "rgb(76, 175, 80)"
         : "rgb(244, 68, 54)"
       : undefined,
+    width: "45%",
+    height: "120px",
+    margin: "10px 0",
   }),
 });

@@ -9,6 +9,7 @@ import { GameStepper } from "./GameStepper";
 import { GameAnswers } from "./GameAnswers";
 import { gameSetup } from "store/actionCreators";
 import { GameQuestion } from "./GameQuestion";
+import GameModal from "./GameModal";
 
 interface GameInterface {
   countriesDataList: {}[];
@@ -27,6 +28,7 @@ export const Game: React.FC<GameInterface> = ({
   currentGame,
 }) => {
   const [activeStep, setActiveStep] = useState(0);
+  const [open, setOpen] = useState(false);
   const classes = GameStyles();
   useEffect(() => {
     countriesDataList.length > 0 && gameSetup();
@@ -58,10 +60,12 @@ export const Game: React.FC<GameInterface> = ({
                 <GameStepper
                   activeStep={activeStep}
                   setActiveStep={setActiveStep}
+                  setOpen={setOpen}
                 />
               </Paper>
             </Grid>
           )}
+          <GameModal open={open} setOpen={setOpen} />
         </Grid>
       )}
     </Box>

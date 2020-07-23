@@ -39,8 +39,15 @@ export const NationButton: React.FC<NationButtonInterface> = ({
             handleClick(e, currentView === nextNationView && next)
           }
         >
-          {next ? <NavigateNext /> : <NavigateBefore />}
-          {next ? "Następny" : "Poprzedni"}
+          {next ? (
+            <>
+              Następny <NavigateNext />
+            </>
+          ) : (
+            <>
+              <NavigateBefore /> Poprzedni
+            </>
+          )}
         </Fab>
       </Grid>
       {currentView && (

@@ -27,7 +27,12 @@ export interface initialStateInterface {
   displayMode: string;
   selectRegionValue: string;
   selectSortValue: string;
-  currentScore: { answered: false; correctAnswer: false }[];
+  currentScore: {
+    answered: false;
+    correctAnswer: false;
+    userAnswer?: string;
+    expectedAnswer?: string;
+  }[];
   currentGame: [];
 }
 

@@ -1,24 +1,31 @@
-import React, { Suspense } from "react";
-import { Grid } from "@material-ui/core";
+import React, { Suspense, useEffect } from "react";
+import { Grid, useMediaQuery } from "@material-ui/core";
 import { connect } from "react-redux";
 
 import { SkeletonBox } from "features/skeleton/SkeletonBox";
 import { DisplayListStyles } from "./DisplayList.styled";
 import InfiniteScrollList from "./InfiniteScrollList";
 import { initialStateInterface } from "store/reducer";
+import { setDisplayMode } from "store/actionCreators";
 
 interface DisplayListInterface {
   skeletonDataList: Array<number>;
   fetchedDataSuccessfull: boolean;
   displayMode: string;
+  setDisplayMode: (displayMode: string) => void;
 }
 
 export const DisplayList: React.FC<DisplayListInterface> = ({
   skeletonDataList,
   fetchedDataSuccessfull,
   displayMode,
+  setDisplayMode,
 }) => {
   const classes = DisplayListStyles();
+  const matches = useMediaQuery("(max-width:600px)");
+  useEffect(() => {
+    matches ? setDisplayMode("grid") : setDisplayMode("list");
+  }, [matches, setDisplayMode]);
   return (
     <Suspense
       fallback={
@@ -48,6 +55,6 @@ const mapStateToProps = (state: initialStateInterface) => {
   };
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { setDisplayMode };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DisplayList);

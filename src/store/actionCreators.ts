@@ -231,6 +231,8 @@ export const gameScoreUpdate = (
     const currentAnswer = {
       answered: true,
       correctAnswer: answer === correctAnswer ? true : false,
+      userAnswer: answer,
+      expectedAnswer: correctAnswer,
     };
     let currentScore = getState().currentScore;
     currentScore[id] = currentAnswer;

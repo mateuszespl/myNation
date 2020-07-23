@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
-import { IconButton, useMediaQuery } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { ViewModule, ViewHeadline } from "@material-ui/icons";
 
 import { setDisplayMode } from "store/actionCreators";
@@ -16,10 +16,6 @@ export const NavigationButtonGroup: React.FC<NavigationButtonGroupInterface> = (
   setDisplayMode,
   displayMode,
 }) => {
-  const matches = useMediaQuery("(max-width:600px)");
-  useEffect(() => {
-    matches ? setDisplayMode("grid") : setDisplayMode("list");
-  }, [matches, setDisplayMode]);
   return (
     <ButtonGroup color="default" aria-label="display-buttons">
       <IconButton
