@@ -120,7 +120,7 @@ export const DisplayItemLink: React.FC<DisplayItemLinkInterface> = ({
                   {(matches ? dataList.slice(0, 3) : dataList).map(
                     ({ icon, text, value, unit }) =>
                       value && (
-                        <Grid item>
+                        <Grid key={value} item>
                           <Chip
                             label={`${text}: ${value}${
                               unit !== undefined ? unit : ""

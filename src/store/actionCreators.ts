@@ -1,4 +1,3 @@
-import { initialState } from "./reducer";
 import { createGame } from "./../features/game/helpers";
 import { fetchAPI } from "./../api/helpers";
 import * as actionTypes from "./actionTypes";
@@ -218,6 +217,21 @@ export const gameSetup = () => {
     dispatch({
       type: actionTypes.CURRENT_GAME_UPDATE,
       currentGame: createGame(countriesDataList),
+      currentGameAvailableSteps: [...new Array(10)].map(
+        (arr, id: number) => id
+      ),
+      currentScore: [
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+      ],
     });
   };
 };
@@ -225,21 +239,34 @@ export const gameSetup = () => {
 export const gameScoreUpdate = (
   answer: string,
   id: number,
-  correctAnswer: string
+  correctAnswer: string,
+  value: string
 ) => {
   return (dispatch: any, getState: any) => {
+    let currentScore = getState().currentScore;
+    const currentGameAvailableStepsRedux = getState().currentGameAvailableSteps;
     const currentAnswer = {
       answered: true,
       correctAnswer: answer === correctAnswer ? true : false,
       userAnswer: answer,
       expectedAnswer: correctAnswer,
+      value: value,
     };
-    let currentScore = getState().currentScore;
     currentScore[id] = currentAnswer;
-    console.log(answer, correctAnswer);
+    const currentGameAvailableSteps =
+      currentGameAvailableStepsRedux.length === 1
+        ? currentGameAvailableStepsRedux
+        : currentScore
+            .map((answer: {}, id: number) => {
+              return { ...answer, id };
+            })
+            .filter((answer: { answered: boolean }) => !answer.answered)
+            .map((answer: { id: number }) => answer.id);
     dispatch({
       type: actionTypes.GAME_SCORE_UPDATE,
       currentScore: [...currentScore],
+      currentGameAvailableSteps,
+      activeStep: 0,
     });
   };
 };
@@ -250,7 +277,33 @@ export const gameRestart = () => {
     dispatch({
       type: actionTypes.RESTART_GAME,
       currentGame: createGame(countriesDataList),
-      currentScore: initialState.currentScore,
+      currentScore: [
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+        { answered: false, correctAnswer: false },
+      ],
+      currentGameAvailableSteps: [...new Array(10)].map(
+        (arr, id: number) => id
+      ),
+      activeStep: 0,
+    });
+  };
+};
+
+export const updateActiveStep = (next: boolean) => {
+  return (dispatch: any, getState: any) => {
+    const activeStep = getState().activeStep;
+    const updatedStep = next ? activeStep + 1 : activeStep - 1;
+    dispatch({
+      type: actionTypes.ACTIVE_STEP_UPDATE,
+      activeStep: updatedStep,
     });
   };
 };

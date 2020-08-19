@@ -10,9 +10,16 @@ interface GameButtonInterface {
   answer: {};
   value: string;
   activeStep: number;
-  gameScoreUpdate: (answer: string, id: number, correctAnswer: string) => void;
+  gameScoreUpdate: (
+    answer: string,
+    id: number,
+    correctAnswer: string,
+    value: string
+  ) => void;
   nation: any;
   currentScore: { answered: boolean; correctAnswer: boolean }[];
+  setOpen: (open: boolean) => void;
+  currentGameAvailableSteps: number[];
 }
 
 export const GameButton: React.FC<GameButtonInterface> = ({
@@ -22,21 +29,21 @@ export const GameButton: React.FC<GameButtonInterface> = ({
   nation,
   gameScoreUpdate,
   currentScore,
+  currentGameAvailableSteps,
+  setOpen,
 }) => {
-  const props = {
-    answered: currentScore[activeStep].answered,
-    correct: currentScore[activeStep].correctAnswer,
-  };
-  const classes = GameButtonStyles(props);
+  const classes = GameButtonStyles();
   return (
     <Button
-      onClick={(e) =>
+      onClick={(e) => {
         gameScoreUpdate(
           String(e.currentTarget.value),
           activeStep,
-          String(Object.values(nation)[Object.keys(nation).indexOf(value)])
-        )
-      }
+          String(Object.values(nation)[Object.keys(nation).indexOf(value)]),
+          value
+        );
+        currentGameAvailableSteps.length === 1 && setOpen(true);
+      }}
       variant="outlined"
       value={String(
         Object.values(answer)[Object.keys(answer).indexOf(value)] &&
@@ -47,24 +54,12 @@ export const GameButton: React.FC<GameButtonInterface> = ({
     >
       {(() => {
         switch (value) {
-          case "capital":
-            return String(
-              Object.values(answer)[Object.keys(answer).indexOf(value)]
-            );
           case "currencies": {
             const object: any = Object.values(answer)[
               Object.keys(answer).indexOf(value)
             ];
             return object[0].code;
           }
-          case "region":
-            return String(
-              Object.values(answer)[Object.keys(answer).indexOf(value)]
-            );
-          case "alpha3Code":
-            return String(
-              Object.values(answer)[Object.keys(answer).indexOf(value)]
-            );
           case "flag":
             return (
               <img
@@ -88,7 +83,9 @@ export const GameButton: React.FC<GameButtonInterface> = ({
               ) + "km²"
             );
           default:
-            return "-";
+            return String(
+              Object.values(answer)[Object.keys(answer).indexOf(value)]
+            );
         }
       })()}
     </Button>

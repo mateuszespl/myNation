@@ -41,6 +41,7 @@ export const InfiniteScrollList: React.FC<InfiniteScrollListInterface> = ({
           alignItems={displayMode === "grid" ? "flex-start" : "center"}
           justify={displayMode === "grid" ? "center" : "flex-start"}
           direction={displayMode === "grid" ? "row" : "column"}
+          key={"skeletonGrid"}
         >
           <SkeletonBox displayMode={displayMode} />
           <SkeletonBox displayMode={displayMode} />

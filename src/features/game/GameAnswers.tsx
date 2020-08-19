@@ -13,18 +13,25 @@ interface GameAnswersInterface {
     value: string;
   }[];
   activeStep: number;
+  setOpen: (open: boolean) => void;
+  currentGameAvailableSteps: number[];
 }
 
 export const GameAnswers: React.FC<GameAnswersInterface> = ({
   currentGame,
   activeStep,
+  setOpen,
+  currentGameAvailableSteps,
 }) => {
   const { value, answers, nation } = currentGame[activeStep];
   return (
     <CardActions>
       <Grid container alignItems="center" justify="space-around" wrap="wrap">
-        {answers.map((answer: {}) => (
+        {answers.map((answer: {}, id: number) => (
           <GameButton
+            key={id}
+            currentGameAvailableSteps={currentGameAvailableSteps}
+            setOpen={setOpen}
             nation={nation}
             value={value}
             answer={answer}

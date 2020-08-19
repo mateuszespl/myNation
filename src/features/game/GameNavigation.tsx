@@ -24,7 +24,6 @@ export const GameNavigation: React.FC<GameNavigationInterface> = ({
   gameRestart,
 }) => {
   const classes = GameNavigationStyles();
-  const matches = useMediaQuery("(max-width:710px)");
   const matches1 = useMediaQuery("(max-width:500px)");
   const history = useHistory();
   return (

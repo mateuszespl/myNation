@@ -5,6 +5,6 @@ export const GameStyles = makeStyles({
     minHeight: "calc(100vh - 64px)",
   },
   cardMedia: {
-    height: "300px",
+    height: "200px",
   },
 });

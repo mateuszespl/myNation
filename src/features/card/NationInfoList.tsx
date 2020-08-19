@@ -55,7 +55,7 @@ export const NationInfoList: React.FC<NationInfoListInterface> = ({
           {dataList.map(
             ({ text, value, unit, icon }) =>
               value && (
-                <ListItem>
+                <ListItem key={value}>
                   <ListItemIcon>{icon}</ListItemIcon>
                   <ListItemText>
                     {text}: {value}

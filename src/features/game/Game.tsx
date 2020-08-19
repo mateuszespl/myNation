@@ -7,7 +7,7 @@ import { initialStateInterface } from "store/reducer";
 import { GameStyles } from "./Game.styled";
 import { GameStepper } from "./GameStepper";
 import { GameAnswers } from "./GameAnswers";
-import { gameSetup } from "store/actionCreators";
+import { gameSetup, updateActiveStep } from "store/actionCreators";
 import { GameQuestion } from "./GameQuestion";
 import GameModal from "./GameModal";
 
@@ -20,14 +20,19 @@ interface GameInterface {
     answers: any[];
     value: string;
   }[];
+  activeStep: number;
+  updateActiveStep: (next: boolean) => void;
+  currentGameAvailableSteps: number[];
 }
 
 export const Game: React.FC<GameInterface> = ({
   countriesDataList,
   gameSetup,
   currentGame,
+  activeStep,
+  updateActiveStep,
+  currentGameAvailableSteps,
 }) => {
-  const [activeStep, setActiveStep] = useState(0);
   const [open, setOpen] = useState(false);
   const classes = GameStyles();
   useEffect(() => {
@@ -49,19 +54,21 @@ export const Game: React.FC<GameInterface> = ({
               <Paper>
                 <Card>
                   <GameQuestion
-                    activeStep={activeStep}
+                    activeStep={currentGameAvailableSteps[activeStep]}
                     currentGame={currentGame}
+                  />
+                  <GameStepper
+                    activeStep={activeStep}
+                    setActiveStep={updateActiveStep}
+                    currentGameAvailableSteps={currentGameAvailableSteps}
                   />
                   <GameAnswers
-                    activeStep={activeStep}
+                    currentGameAvailableSteps={currentGameAvailableSteps}
+                    activeStep={currentGameAvailableSteps[activeStep]}
                     currentGame={currentGame}
+                    setOpen={setOpen}
                   />
                 </Card>
-                <GameStepper
-                  activeStep={activeStep}
-                  setActiveStep={setActiveStep}
-                  setOpen={setOpen}
-                />
               </Paper>
             </Grid>
           )}
@@ -75,8 +82,10 @@ export const Game: React.FC<GameInterface> = ({
 const mapStateToProps = (state: initialStateInterface) => ({
   countriesDataList: state.countriesDataList,
   currentGame: state.currentGame,
+  activeStep: state.activeStep,
+  currentGameAvailableSteps: state.currentGameAvailableSteps,
 });
 
-const mapDispatchToProps = { gameSetup };
+const mapDispatchToProps = { gameSetup, updateActiveStep };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

@@ -26,7 +26,7 @@ export const Autocomplete: React.FC<AutocompleteInterface> = ({
   return (
     <List className={classes.list}>
       {autocompleteList.map(({ name, flag }) => (
-        <ListItem>
+        <ListItem key={name}>
           <Button
             variant="contained"
             component={Link}

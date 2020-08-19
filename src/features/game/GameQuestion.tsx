@@ -5,7 +5,11 @@ import { GameQuestionStyles } from "./GameQuestion.styled";
 
 interface GameQuestionInterface {
   activeStep: number;
-  currentGame: { question: string; nation: { flag: string; name: string } }[];
+  currentGame: {
+    question: string;
+    nation: { flag: string; name: string };
+    value: string;
+  }[];
 }
 
 export const GameQuestion: React.FC<GameQuestionInterface> = ({
@@ -22,7 +26,11 @@ export const GameQuestion: React.FC<GameQuestionInterface> = ({
           </Typography>
           <CardMedia
             className={classes.cardMedia}
-            image={currentGame && currentGame[activeStep].nation.flag}
+            image={
+              currentGame && currentGame[activeStep].value === "flag"
+                ? "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Question_Mark.svg/1200px-Question_Mark.svg.png"
+                : currentGame[activeStep].nation.flag
+            }
           />
           <Typography align="center" variant="h5" component="h3">
             {currentGame && currentGame[activeStep].nation.name}

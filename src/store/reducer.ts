@@ -34,6 +34,8 @@ export interface initialStateInterface {
     expectedAnswer?: string;
   }[];
   currentGame: [];
+  activeStep: number;
+  currentGameAvailableSteps: number[];
 }
 
 export const initialState: initialStateInterface = {
@@ -97,6 +99,8 @@ export const initialState: initialStateInterface = {
     { answered: false, correctAnswer: false },
   ],
   currentGame: [],
+  currentGameAvailableSteps: [],
+  activeStep: 0,
 };
 
 export const reducer = (state = initialState, action: any) => {
@@ -148,17 +152,28 @@ export const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         currentGame: action.currentGame,
+        currentGameAvailableSteps: action.currentGameAvailableSteps,
+        currentScore: action.currentScore,
       };
     case actionTypes.GAME_SCORE_UPDATE:
       return {
         ...state,
         currentScore: action.currentScore,
+        currentGameAvailableSteps: action.currentGameAvailableSteps,
+        activeStep: action.activeStep,
+      };
+    case actionTypes.ACTIVE_STEP_UPDATE:
+      return {
+        ...state,
+        activeStep: action.activeStep,
       };
     case actionTypes.RESTART_GAME:
       return {
         ...state,
         currentScore: action.currentScore,
         currentGame: action.currentGame,
+        activeStep: action.activeStep,
+        currentGameAvailableSteps: action.currentGameAvailableSteps,
       };
     default:
       return {
